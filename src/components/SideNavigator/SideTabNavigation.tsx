@@ -1,0 +1,83 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useNumberContext } from '../Contexts/NumberContext';
+
+interface Tab {
+    label: string;
+    content: JSX.Element;
+    isSelected: boolean;
+}
+
+interface SideTabNavigationProps {
+    tabs: Tab[];
+    selectedTab: number;
+    setSelectedTab: (index: number) => void;
+}
+
+const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab, setSelectedTab }) => {
+    const { setSelectedNumbers } = useNumberContext()
+
+    const handleTabPress = (index: number) => {
+        setSelectedTab(index);
+        setSelectedNumbers([]);
+    };
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.tabsContainer}>
+                <ScrollView>
+                    {tabs.map((tab, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={[styles.tab, index === selectedTab && styles.selectedTab]}
+                            onPress={() => handleTabPress(index)}>
+                            <Text style={[styles.tabText, index === selectedTab && styles.selectedTabText]}>
+                                {tab.label}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
+            <View style={styles.contentContainer}>
+                {tabs[selectedTab].content}
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    tabsContainer: {
+        width: 100,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    tab: {
+        width: 100,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: 'row',
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+    },
+    selectedTab: {
+        backgroundColor: 'darkblue',
+    },
+    selectedTabText: {
+        color: 'white', // 修改为文本颜色
+    },
+    tabText: {
+        fontSize: 16,
+        color: 'gray',
+    },
+    contentContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
+
+export default SideTabNavigation;
