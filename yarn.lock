@@ -4987,6 +4987,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lunar-calendar@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/lunar-calendar/-/lunar-calendar-0.1.4.tgz#4303024f889d5d706caf407c45dbdf1ced870be8"
+  integrity sha512-5r87vbg5yg56z/jkf3A+Ur+ZggUTiJw1VATT9P7RELQgWcTNhfJ+OLkNYroSna6r65bMqyaAgapo9vRN40L75A==
+
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-2.1.0.tgz"

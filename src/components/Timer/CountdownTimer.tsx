@@ -105,7 +105,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import moment from 'moment-timezone';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 interface CountdownTimerProps {
     sleepStartTime?: string; // 睡眠开始时间
@@ -173,33 +173,37 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
             justifyContent: 'center',
             alignItems: 'center',
             width: Dimensions.get('window').width / 2,
-            height: 50,
             // backgroundColor: '#0A716B',
         }}>
-            <Icon
-                name="clock-o"
-                size={30}
-                color="#900"
-                style={{
-                    marginLeft: 30,
-                }}
-            />
-            {sleepReminder ?
-                <Text>
-                    {sleepReminder}
-                </Text> :
-                <Text style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontSize: 24,
-                    fontWeight: 'bold',
-                    color: 'orangered',
-                    margin: 10,
-                }}>
-                    {formatTime(remainingTime)}
-                </Text>
-            }
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                // backgroundColor: '#0A716B',
+                width: Dimensions.get('window').width / 10,
+            }}>
+                <Icon name="clockcircleo" size={24} color="#900" />
+            </View>
+            <View style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                // backgroundColor: '#0A716B',
+            }}>
+                {sleepReminder ?
+                    <Text>
+                        {sleepReminder}
+                    </Text> :
+                    <Text style={{
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                        color: 'orangered',
+                        width: 100,
+                    }}>
+                        {formatTime(remainingTime)}
+                    </Text>
+                }
+            </View>
+
         </View>
     );
 };

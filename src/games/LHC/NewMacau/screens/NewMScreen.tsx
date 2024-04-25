@@ -7,6 +7,8 @@ import { useNumberContext } from "../../../../components/Contexts/NumberContext"
 import PagesSwitch from "../../../../components/Switch/PagesSwitch";
 import SpecialNumberA from "../components/specialNumbers/SpecialNumberA";
 import SpecialNumberB from "../components/specialNumbers/SpecialNumberB";
+import GetLotteryResults from "../components/dataSource/GetLotteryResults";
+import CountdownTimer from "../../../../components/Timer/CountdownTimer";
 
 
 interface Tab {
@@ -51,14 +53,37 @@ const NewMScreen: React.FC = () => {
         },
     ];
 
+    // 在父组件中定义计算函数
+    const calculateExpect = (expect: string): number => {
+        return parseInt(expect) + 1;
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={{ fontWeight: 'bold', fontSize: 30, color: '#ddd' }}>Herder</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ width: '50%', height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'green', fontSize: 20 }}>
+                            {/* <GetLotteryResults showExpect={true} /> */}
+                            余额：99999
+                        </Text>
+                    </View>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', width: '50%', height: 50 }}>
+                        <Text>
+                            <GetLotteryResults calculateExpect={calculateExpect} />
+                        </Text>
+                        <Text style={{ justifyContent: 'center', alignItems: 'center', }}>
+                            <CountdownTimer />
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ marginLeft: 10 }}>
+                    <Text><GetLotteryResults showExpect={true} showOpenCode={true} showZodiac={true} showWave={true} /></Text>
+                </View>
             </View>
             <SideTabNavigation tabs={tabs} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
             {shouldShowAddDataButton && <AddDataButton />}
-        </View>
+        </View >
     );
 
 
@@ -68,11 +93,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: 'darkblue',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 150,
-        borderWidth: 1,
+        // backgroundColor: 'darkblue',
+        height: 140,
+        borderBottomStartRadius: 5,
+        borderBottomEndRadius: 5,
         borderColor: 'gray',
     },
     selectedNumberButtonRed: {

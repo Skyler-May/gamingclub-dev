@@ -8,6 +8,8 @@ interface GetLotteryResultsProps {
     showOpenTime?: boolean;
     showWave?: boolean;
     showInfo?: boolean;
+    shouldCalculateExpect?: boolean; // 新增属性来控制是否计算期数
+    calculateExpect?: (expect: string) => number;
 }
 
 type LotteryResult = {
@@ -20,12 +22,14 @@ type LotteryResult = {
 };
 
 const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
-    showExpect = true,
-    showOpenCode = true,
-    showZodiac = true,
-    showOpenTime = true,
-    showWave = true,
-    showInfo = true
+    showExpect = false,
+    showOpenCode = false,
+    showZodiac = false,
+    showOpenTime = false,
+    showWave = false,
+    showInfo = false,
+    shouldCalculateExpect = false, // 新增属性来控制是否计算期数
+    calculateExpect
 }) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<LotteryResult[]>([]);
@@ -56,12 +60,14 @@ const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
                     keyExtractor={({ expect }) => expect}
                     renderItem={({ item }) => (
                         <View style={{ flex: 1, }}>
-                            <View style={{ flex: 1, }}>
-                                {showExpect && <Text style={{ color: 'gray' }}>第: {parseInt(item.expect)} 期 开奖结果</Text>}
+                            <View style={{ flex: 1 }}>
+                                {showExpect && !shouldCalculateExpect && <Text style={{ fontSize: 14, color: 'gray' }}>第: {item.expect} 期 开奖结果</Text>}
+                                {calculateExpect && <Text style={{ fontSize: 12, color: 'gray' }}>第: {calculateExpect(item.expect)} 期 倒计时</Text>}
                                 {showOpenTime && <Text style={{ color: 'gray' }}>开奖时间: {item.openTime}</Text>}
                                 {showInfo && <Text style={{ color: 'gray' }}>信息: {item.info}</Text>}
                             </View>
-                            <View style={{ flexDirection: 'row' }}>
+
+                            <View style={{ flexDirection: 'row', }}>
                                 {showOpenCode && showZodiac &&
                                     [...Array(6)].map((_, index) => (
                                         <View style={styles.openCodeWithzodiacContainer} key={index}>
@@ -69,7 +75,7 @@ const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
                                                 <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[index]}</Text>
                                             </View>
                                             <View style={styles.zodiacContainer}>
-                                                <Text style={{ fontSize: 14, color: 'gray' }}>{item.zodiac.split(',')[index]}</Text>
+                                                <Text style={{ fontSize: 16, color: 'gray' }}>{item.zodiac.split(',')[index]}</Text>
                                             </View>
                                         </View>
                                     ))
@@ -87,7 +93,7 @@ const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
                                             <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[6]}</Text>
                                         </View>
                                         <View style={styles.zodiacContainer}>
-                                            <Text style={{ fontSize: 14, color: 'gray' }}>{item.zodiac.split(',')[6]}</Text>
+                                            <Text style={{ fontSize: 16, color: 'gray' }}>{item.zodiac.split(',')[6]}</Text>
                                         </View>
                                     </View>
                                 )}

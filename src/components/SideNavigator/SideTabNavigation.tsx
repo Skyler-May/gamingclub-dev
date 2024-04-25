@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNumberContext } from '../Contexts/NumberContext';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface Tab {
     label: string;
@@ -21,6 +22,7 @@ const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab
         setSelectedTab(index);
         setSelectedNumbers([]);
     };
+    const gradientColors = ['#0052D4', '#4364F7'];
 
     return (
         <View style={styles.container}>
@@ -42,6 +44,7 @@ const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab
                 {tabs[selectedTab].content}
             </View>
         </View>
+
     );
 };
 
@@ -49,11 +52,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
+        // backgroundColor: '#ddd',
     },
     tabsContainer: {
         width: 100,
         justifyContent: "center",
         alignItems: "center",
+        borderColor: '#ddd',
     },
     tab: {
         width: 100,
@@ -64,10 +69,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     selectedTab: {
-        backgroundColor: 'darkblue',
+        backgroundColor: '#4C7E8080',
+        borderTopRightRadius: 25,
+        borderBottomEndRadius: 25,
     },
     selectedTabText: {
-        color: 'white', // 修改为文本颜色
+        color: 'white',
     },
     tabText: {
         fontSize: 16,
