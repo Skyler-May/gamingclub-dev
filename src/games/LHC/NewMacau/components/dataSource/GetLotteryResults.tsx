@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 
-interface getLotteryResultsProps {
-    expect?: string;
-    openCode?: string;
-    zodiac?: string;
-    openTime?: string;
-    wave?: string;
-    info?: string;
+interface GetLotteryResultsProps {
+    showExpect?: boolean;
+    showOpenCode?: boolean;
+    showZodiac?: boolean;
+    showOpenTime?: boolean;
+    showWave?: boolean;
+    showInfo?: boolean;
 }
 
 type LotteryResult = {
@@ -19,7 +19,14 @@ type LotteryResult = {
     info: string;
 };
 
-const getLotteryResults: React.FC<getLotteryResultsProps> = ({ }) => {
+const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
+    showExpect = true,
+    showOpenCode = true,
+    showZodiac = true,
+    showOpenTime = true,
+    showWave = true,
+    showInfo = true
+}) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<LotteryResult[]>([]);
 
@@ -40,7 +47,7 @@ const getLotteryResults: React.FC<getLotteryResultsProps> = ({ }) => {
     }, []);
 
     return (
-        <View>
+        <View style={styles.container}>
             {isLoading ? (
                 <ActivityIndicator />
             ) : (
@@ -48,122 +55,70 @@ const getLotteryResults: React.FC<getLotteryResultsProps> = ({ }) => {
                     data={data}
                     keyExtractor={({ expect }) => expect}
                     renderItem={({ item }) => (
-                        <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                            <View>
-                                <View style={{ flexDirection: 'row', backgroundColor: 'darkblue' }}>
-                                    {/* 渲染开奖号码 */}
-                                    <View style={{ backgroundColor: item.wave.split(',')[0], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[0]}</Text>
-
+                        <View style={{ flex: 1, }}>
+                            <View style={{ flex: 1, }}>
+                                {showExpect && <Text style={{ color: 'gray' }}>第: {parseInt(item.expect)} 期 开奖结果</Text>}
+                                {showOpenTime && <Text style={{ color: 'gray' }}>开奖时间: {item.openTime}</Text>}
+                                {showInfo && <Text style={{ color: 'gray' }}>信息: {item.info}</Text>}
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                {showOpenCode && showZodiac &&
+                                    [...Array(6)].map((_, index) => (
+                                        <View style={styles.openCodeWithzodiacContainer} key={index}>
+                                            <View style={{ backgroundColor: item.wave.split(',')[index], borderRadius: 20, width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
+                                                <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[index]}</Text>
+                                            </View>
+                                            <View style={styles.zodiacContainer}>
+                                                <Text style={{ fontSize: 14, color: 'gray' }}>{item.zodiac.split(',')[index]}</Text>
+                                            </View>
+                                        </View>
+                                    ))
+                                }
+                                {showWave && (
+                                    <View style={styles.openCodeWithzodiacContainer}>
+                                        <View style={{ borderRadius: 20, width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'gray' }}>+</Text>
+                                        </View>
                                     </View>
-                                    <View style={{ backgroundColor: item.wave.split(',')[1], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[1]}</Text>
+                                )}
+                                {showOpenCode && showZodiac && (
+                                    <View style={styles.openCodeWithzodiacContainer}>
+                                        <View style={{ backgroundColor: item.wave.split(',')[6], borderRadius: 20, width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[6]}</Text>
+                                        </View>
+                                        <View style={styles.zodiacContainer}>
+                                            <Text style={{ fontSize: 14, color: 'gray' }}>{item.zodiac.split(',')[6]}</Text>
+                                        </View>
                                     </View>
-                                    <View style={{ backgroundColor: item.wave.split(',')[2], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[2]}</Text>
-                                    </View>
-                                    <View style={{ backgroundColor: item.wave.split(',')[3], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[3]}</Text>
-                                    </View>
-                                    <View style={{ backgroundColor: item.wave.split(',')[4], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[4]}</Text>
-                                    </View>
-                                    <View style={{ backgroundColor: item.wave.split(',')[5], padding: 5, borderRadius: 5, marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[5]}</Text>
-                                    </View>
-                                    {/* 加号 */}
-                                    <View style={{ marginRight: 5 }}>
-                                        <Text style={{ fontSize: 16 }}>+</Text>
-                                    </View>
-                                    {/* 最后一个开奖号码 */}
-
-                                </View>
-
-
-                                <View style={styles.zodiacContainer}>
-                                    {/* 渲染生肖 */}
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[0]}</Text>
-                                    </View>
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[1]}</Text>
-                                    </View>
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[2]}</Text>
-                                    </View>
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[3]}</Text>
-                                    </View>
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[4]}</Text>
-                                    </View>
-                                    <View style={styles.zodiacItem}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[5]}</Text>
-                                    </View>
-                                    {/* 最后一个生肖 */}
-                                    {/* <View style={{ padding: 5, borderRadius: 5 }}>
-                                        <Text style={styles.zodiacText}>{item.zodiac.split(',')[6]}</Text>
-                                    </View> */}
-                                </View>
-                                <View style={{ marginLeft: 20 }}>
-                                    <Text>第期: {item.expect} </Text>
-                                    <Text>第期: {item.expect} </Text>
-                                    <Text>第期: {item.expect} </Text>
-                                    <Text>第期: {item.expect} </Text>
-                                    {/* <Text>开奖时间: {item.openTime}</Text> */}
-                                    {/* <Text>信息: {item.info}</Text> */}
-                                </View>
-                                <View style={{
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    backgroundColor: 'green',
-                                    flex: 1,
-                                    height: 200,
-                                }}>
-                                    <View style={{ backgroundColor: item.wave.split(',')[6], borderRadius: 20, width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 16, color: 'white' }}>{item.openCode.split(',')[6]}</Text>
-                                    </View>
-                                    <View style={{ backgroundColor: 'red', borderRadius: 5 }}>
-                                        <Text style={{ fontSize: 14 }}>{item.zodiac.split(',')[6]}</Text>
-                                    </View>
-                                </View>
-
+                                )}
                             </View>
                         </View>
                     )}
                 />
             )}
-        </View>
+        </View >
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // backgroundColor: 'blue',
     },
 
+    openCodeWithzodiacContainer: {
+        alignItems: 'center',
+        margin: 2,
+        // backgroundColor: 'cornsilk',
+    },
     zodiacContainer: {
-        flexDirection: 'row',
-        backgroundColor: 'blue',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-
-    zodiacItem: {
-        padding: 5,
-        borderRadius: 5,
-        marginRight: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderRadius: 20,
         width: 30,
         height: 30,
-    },
-
-    zodiacText: {
-        fontSize: 16,
-        color: '#000',
-        backgroundColor: '#ddd',
+        // backgroundColor: 'cornsilk',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })
 
-export default getLotteryResults;
+export default GetLotteryResults;
