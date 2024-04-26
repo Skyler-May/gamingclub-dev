@@ -169,26 +169,15 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
 
     return (
         <View style={{
+            width: Dimensions.get('window').width / 2,
+            flex: 1,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            width: Dimensions.get('window').width / 2,
             // backgroundColor: '#0A716B',
         }}>
-            <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                // backgroundColor: '#0A716B',
-                width: Dimensions.get('window').width / 10,
-            }}>
-                <Icon name="clockcircleo" size={24} color="#900" />
-            </View>
-            <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                // backgroundColor: '#0A716B',
-            }}>
+            <Icon name="clockcircleo" size={24} color="#900" />
+            <View style={{ marginLeft: 10 }}>
                 {sleepReminder ?
                     <Text>
                         {sleepReminder}
@@ -197,13 +186,11 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
                         fontSize: 24,
                         fontWeight: 'bold',
                         color: 'orangered',
-                        width: 100,
                     }}>
                         {formatTime(remainingTime)}
                     </Text>
                 }
             </View>
-
         </View>
     );
 };
