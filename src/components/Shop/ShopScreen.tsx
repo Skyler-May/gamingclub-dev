@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import ShoppingCart from './ShoppingCart';
 import { useNavigation } from '@react-navigation/core';
 import CountdownTimer from '../Timer/CountdownTimer';
+import GetLotteryResults from '../../games/LHC/NewMacau/components/dataSource/GetLotteryResults';
 
 
 const ShopScreen: React.FC = () => {
@@ -33,25 +34,22 @@ const ShopScreen: React.FC = () => {
 
     //         return unsubscribe;
     //     }, [navigation]);
+    // 在父组件中定义计算函数
+    const calculateExpect = (expect: string): number => {
+        return parseInt(expect) + 1;
+
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <View>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>第 20240112 期</Text>
-                    </View>
-                    <View style={styles.item}>
-                        <Text style={styles.title}><CountdownTimer sleepStartTime="21:15" sleepEndTime="21:33" /></Text>
-                    </View>
+                <View style={styles.item}>
+                    <Text><GetLotteryResults calculateExpect={calculateExpect} /></Text>
+                    <Text><CountdownTimer sleepStartTime="21:15" sleepEndTime="21:33" /></Text>
                 </View>
-                <View>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>This </Text>
-                    </View>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>This is screen</Text>
-                    </View>
+                <View style={styles.item}>
+                    <Text style={{ color: 'gray', fontSize: 16 }}>余额：</Text>
+                    <Text style={styles.itemText}>999999</Text>
                 </View>
             </View>
             <ShoppingCart />
@@ -64,29 +62,22 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     headerContainer: {
-        height: 100, // 调整头部高度
+        height: 100,
         // backgroundColor: 'green',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    headerItem: {
-        // backgroundColor: 'red',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     item: {
-        flex: 1,
-        // backgroundColor: 'darkblue', // 更改项目的背景颜色
-        width: Dimensions.get('window').width / 2, // 将项目宽度设置为屏幕宽度的一半
+        // backgroundColor: 'darkblue',
+        width: Dimensions.get('window').width / 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 5,
     },
-    title: {
-        fontSize: 16,
+    itemText: {
+        fontSize: 24,
         fontWeight: 'bold',
-        // color: 'white',
+        color: 'green',
     },
 });
 

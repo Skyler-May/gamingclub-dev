@@ -99,7 +99,7 @@ const ShoppingCart: React.FC = () => {
         return (
             <View style={styles.cartItemContainer}>
                 <View style={styles.cartItem}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'teal' }}>{item.name}</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'orangered' }}>{item.name}</Text>
                     <Text style={{ color: 'gray' }}>{item.additionalText}</Text>
                 </View>
                 {/* <TextInput
@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         fontSize: 14,
         width: 100,
+        color: 'darkgreen',
     },
 
     button: {

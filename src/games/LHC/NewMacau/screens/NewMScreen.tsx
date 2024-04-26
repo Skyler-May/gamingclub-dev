@@ -61,14 +61,14 @@ const NewMScreen: React.FC = () => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: '50%', height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', height: 50, }}>
+                    <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'green', fontSize: 20 }}>
                             {/* <GetLotteryResults showExpect={true} /> */}
                             余额：99999
                         </Text>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', width: '50%', height: 50 }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', width: '50%', }}>
                         <Text>
                             <GetLotteryResults calculateExpect={calculateExpect} />
                         </Text>
@@ -77,7 +77,7 @@ const NewMScreen: React.FC = () => {
                         </Text>
                     </View>
                 </View>
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10, height: 100, }}>
                     <Text><GetLotteryResults showExpect={true} showOpenCode={true} showZodiac={true} showWave={true} /></Text>
                 </View>
             </View>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     header: {
         // backgroundColor: 'darkblue',
-        height: 140,
+        height: 150,
         borderBottomStartRadius: 5,
         borderBottomEndRadius: 5,
         borderColor: 'gray',

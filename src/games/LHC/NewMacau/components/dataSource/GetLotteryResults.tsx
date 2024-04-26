@@ -61,8 +61,8 @@ const GetLotteryResults: React.FC<GetLotteryResultsProps> = ({
                     renderItem={({ item }) => (
                         <View style={{ flex: 1, }}>
                             <View style={{ flex: 1 }}>
-                                {showExpect && !shouldCalculateExpect && <Text style={{ fontSize: 14, color: 'gray' }}>第: {item.expect} 期 开奖结果</Text>}
-                                {calculateExpect && <Text style={{ fontSize: 12, color: 'gray' }}>第: {calculateExpect(item.expect)} 期 倒计时</Text>}
+                                {showExpect && !shouldCalculateExpect && <Text style={{ color: 'gray' }}>第 {item.expect} 期 开奖结果</Text>}
+                                {calculateExpect && <Text style={{ color: 'gray' }}>第 {calculateExpect(item.expect)} 期 截止</Text>}
                                 {showOpenTime && <Text style={{ color: 'gray' }}>开奖时间: {item.openTime}</Text>}
                                 {showInfo && <Text style={{ color: 'gray' }}>信息: {item.info}</Text>}
                             </View>
