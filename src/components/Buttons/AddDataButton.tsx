@@ -133,11 +133,15 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
             return;
         }
         // 将所选项目添加到购物车中
+        // 将所选项目添加到购物车中
         const newCartItems: CartItem[] = [];
         selectedNumbers.forEach(number => {
+            // 格式化数字为两位数
+            const formattedNumber = number < 10 ? `0${number}` : `${number}`;
+
             return newCartItems.push({
                 id: number,
-                name: `${title} - @${number}`, // 根据你的逻辑来设置商品名称
+                name: `${title} - @${formattedNumber}`, // 使用格式化后的数字
                 quantity: 1, // 默认数量为1
                 price: parseFloat(selectedAmounts),
                 additionalText: `${additionalText}`,
