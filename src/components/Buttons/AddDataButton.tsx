@@ -36,20 +36,21 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     // 生成指定范围内的随机数数组
     function getRandomNumbers(min: number, max: number, count: number): number[] {
         const numbers: number[] = [];
-        for (let i = 0; i < count; i++) {
-            const randomNumber = getRandomInt(min, max);
-            numbers.push(randomNumber);
+        while (numbers.length < count) {
+            const selectedNumber = getRandomInt(min, max);
+            if (!numbers.includes(selectedNumber)) {
+                numbers.push(selectedNumber);
+            }
         }
         return numbers;
     }
 
     // 定义点击事件
-    // const handleClick = () => {
-    //     // 清除所有手动选择的商品
-    //     setSelectedNumbers([]);
-    //     const randomNumbers = getRandomNumbers(1, 49, 10); // 生成10个范围在1到100之间的随机数
-    //     setSelectedNumbers(randomNumbers); // 更新上下文中的选定数字
-    // };
+    const handleClick = () => {
+        const selectedNumbers = getRandomNumbers(1, 49, 48); // 生成10个范围在1到100之间的随机数
+        setSelectedNumbers([])
+        setSelectedNumbers(selectedNumbers); // 更新上下文中的选定数字
+    };
 
     // 处理编辑默认金额按钮点击事件的函数
     const handleEditDefaultAmountButtonPress = () => {
@@ -232,14 +233,15 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     <Icon name="delete" size={24} color="#900" />
                     <Text style={{ fontSize: 12, color: 'gray' }}>清空</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity onPress={handleClick} style={styles.iconButton}>
-                    <Icon name="shake" size={24} color="#900" />
-                    <Text style={{ fontSize: 12, color: 'gray' }}>随机</Text>
-                </TouchableOpacity> */}
+
                 <View style={styles.countContainer}>
                     <Text style={styles.count}>({selectedNumbers.length})</Text>
                     <Text style={styles.text}>数量</Text>
                 </View>
+                <TouchableOpacity onPress={handleClick} style={styles.iconButton}>
+                    <Icon name="shake" size={24} color="#900" />
+                    <Text style={{ fontSize: 12, color: 'gray' }}>随机</Text>
+                </TouchableOpacity>
                 {/* 添加到购物车 */}
                 <TextInput
                     style={styles.input}
