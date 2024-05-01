@@ -105,7 +105,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import moment from 'moment-timezone';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface CountdownTimerProps {
     sleepStartTime?: string; // 睡眠开始时间
@@ -176,7 +176,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
             alignItems: 'center',
             // backgroundColor: '#0A716B',
         }}>
-            <Icon name="clockcircleo" size={24} color="#900" />
+            <Icon name="alarm-outline" size={24} color="#900" />
             <View style={{ marginLeft: 10 }}>
                 {sleepReminder ?
                     <Text>
