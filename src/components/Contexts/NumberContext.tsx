@@ -1,15 +1,22 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { CartItem } from '../Shop/ShoppingCart';
 
 // 定义上下文
 interface NumberContextType {
+    // 数字选择器
     selectedNumbers: number[];
     setSelectedNumbers: React.Dispatch<React.SetStateAction<number[]>>;
     handleNumberSelect: (number: number) => void;
     selectedCount: number; // 新增的状态
-
     additionalText?: string;
     setAdditionalText: React.Dispatch<React.SetStateAction<string>>;
+
+    // 文本选择器
+    selectedButtonIndexes: number[];
+    setSelectedButtonIndexes: React.Dispatch<React.SetStateAction<number[]>>;
+    additionalTextValues: { [key: string]: string };
+    buttonText: string[];
+    handlePress: (index: number, buttonText: string[]) => void;
 
     // 购物车相关上下文
     cartItems: CartItem[];
@@ -22,7 +29,11 @@ interface NumberContextType {
 
     // 页面切换器 标题
     title: string;
-    setTitle: React.Dispatch<React.SetStateAction<string>>;// 添加用于设置title的方法
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+
+    // 弹出 Add 按钮
+    showAddButton: boolean;
+    setshowAddButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NumberContext = createContext<NumberContextType | undefined>(undefined);
@@ -32,11 +43,15 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
 
     const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
     const [selectedCount, setSelectedCount] = useState(0); // 新增的状态
-    const [additionalText, setAdditionalText] = useState<string>('');
-    // 获取 PagesSwitch 中的 title
-    const [title, setTitle] = useState<string>(''); // 添加title状态和设置title的方法
+    const [additionalText, setAdditionalText] = useState<string>(''); // 新增 PagesSwitch 组件 title 状态
+    const [title, setTitle] = useState<string>(''); // 获取 PagesSwitch 中的 title
+    const [showAddButton, setshowAddButton] = useState<boolean>(false); // 新增 ButtonGraup 组件状态
+    // ================================数字选择器======================================
+    useEffect(() => {
+        setSelectedCount(selectedNumbers.length);
+        console.log(selectedNumbers);
+    }, [selectedNumbers]);
 
-    // ================================选择器======================================
     const handleNumberSelect = (number: number) => {
         if (selectedNumbers.includes(number)) {
             setSelectedNumbers(selectedNumbers.filter((n) => n !== number));
@@ -44,7 +59,25 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
             setSelectedNumbers([...selectedNumbers, number]);
         }
     };
-    // ================================选择器======================================
+    // ================================数字选择器======================================
+    // ================================文本选择器======================================
+    const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
+
+    useEffect(() => {
+        setSelectedCount(selectedButtonIndexes.length);
+    }, [selectedButtonIndexes]);
+
+    const handlePress = useCallback((index: number) => {
+        setSelectedButtonIndexes(prevSelectedIndexes => {
+            const indexInSelected = prevSelectedIndexes.indexOf(index);
+            if (indexInSelected === -1) {
+                return [...prevSelectedIndexes, index];
+            } else {
+                return prevSelectedIndexes.filter(i => i !== index);
+            }
+        });
+    }, []);
+    // ================================文本选择器======================================
     // ================================购物车======================================
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     console.log('NumberDataProvider is called with selectedNumbers:', selectedNumbers, 'and cartItems:', cartItems);
@@ -83,13 +116,20 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     // ================================购物车======================================
 
     const contextValue: NumberContextType = {
+        // 数字选择器
         selectedNumbers,
         setSelectedNumbers,
         handleNumberSelect,
         selectedCount,
-
         additionalText,
         setAdditionalText,
+
+        // 文本选择器
+        selectedButtonIndexes,
+        setSelectedButtonIndexes,
+        additionalTextValues: {},
+        buttonText: [],
+        handlePress,
 
         // 购物车相关上下文
         cartItems,
@@ -104,6 +144,10 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         title,
         setTitle,
 
+        // 弹出 Add 按钮
+        showAddButton,
+        setshowAddButton,
+        // handleShopSubmitChange,
     };
 
     return (
