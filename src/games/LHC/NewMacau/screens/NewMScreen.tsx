@@ -9,7 +9,8 @@ import SpecialNumberA from "./SpecialNumberScreens/SpecialNumberScreenA";
 import SpecialNumberB from "./SpecialNumberScreens/SpecialNumberScreenB";
 import GetLotteryResults from "../components/dataSource/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
-
+import SpecialZodiacScreen from "./CombinationScreens/SpecialZodiacScreen/SpecialZodiacScreen";
+import TwoSpecialZodiacScreen from "./CombinationScreens/TwoSpecialZodiacScreen/TwoSpecialZodiacScreen";
 
 interface Tab {
     label: string;
@@ -18,32 +19,36 @@ interface Tab {
 }
 
 const NewMScreen: React.FC = () => {
-    const { selectedNumbers } = useNumberContext();
+    const { selectedNumbers, showAddButton } = useNumberContext();
     const shouldShowAddDataButton = selectedNumbers.length >= 1;
 
-    const pages = [
-        { key: '1', component: <SpecialNumberA />, title: '商店 A' },
-        { key: '2', component: <SpecialNumberB />, title: '商店 B' },
-        // { key: '3', component: <SpecialNumberA />, title: '饭店' },
-        // { key: '4', component: <SpecialNumberA />, title: '咖啡店' },
+    const shop = [
+        { key: '1', component: <SpecialNumberA />, title: 'TM A' },
+        { key: '2', component: <SpecialNumberB />, title: 'TM B' },
+    ];
+    const hotle = [
+        { key: '1', component: <SpecialZodiacScreen />, title: 'TX' },
+    ];
+    const milkteashop = [
+        { key: '1', component: <TwoSpecialZodiacScreen />, title: '2L' },
     ];
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
 
     const tabs: Tab[] = [
         {
-            label: '商店',
-            content: <View><PagesSwitch pages={pages} /></View>,
-            isSelected: false, // 初始化 isSelected 属性
-        },
-        {
-            label: '酒店',
-            content: <View><Text>Content of Tab 2</Text></View>,
+            label: 'TM',
+            content: <View><PagesSwitch pages={shop} /></View>,
             isSelected: false,
         },
         {
-            label: '奶茶店',
-            content: <View><Text>Content of Tab 3</Text></View>,
+            label: 'TX',
+            content: <View><PagesSwitch pages={hotle} /></View>,
+            isSelected: false,
+        },
+        {
+            label: 'LX',
+            content: <View><PagesSwitch pages={milkteashop} /></View>,
             isSelected: false,
         },
         {
@@ -83,6 +88,7 @@ const NewMScreen: React.FC = () => {
             </View>
             <SideTabNavigation tabs={tabs} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
             {shouldShowAddDataButton && <AddDataButton />}
+            {showAddButton && <AddDataButton />}
         </View >
     );
 

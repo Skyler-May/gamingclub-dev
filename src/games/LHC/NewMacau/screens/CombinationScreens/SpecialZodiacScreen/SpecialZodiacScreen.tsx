@@ -59,7 +59,7 @@ const TwoSpecialZodiacScreen = () => {
                 defaultText={true}
                 buttonTextArray={buttonTextArray}
                 generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
-                minSelectedCount={4} // 设置所需的最小选定按钮数量
+                minSelectedCount={1} // 设置所需的最小选定按钮数量
                 onShopSubmitChange={handleShopSubmitChange} // 传递处理 shopsubmit 的回调函数
                 shopsubmit={showAddButton}
             />

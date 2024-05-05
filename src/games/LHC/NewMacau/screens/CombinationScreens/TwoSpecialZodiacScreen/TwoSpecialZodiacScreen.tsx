@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import ButtonGroup from '../../../../../../components/Selector/TextSelector/ButtonGroup';
 import { useNumberContext } from '../../../../../../components/Contexts/NumberContext';
 
-const ConnectionZodiacScreen = () => {
+const TwoSpecialZodiacScreen = () => {
     const buttonTextArray: string[] = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
     ];
@@ -47,7 +47,7 @@ const ConnectionZodiacScreen = () => {
                 defaultText={true}
                 buttonTextArray={buttonTextArray}
                 generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
-                minSelectedCount={5} // 设置所需的最小选定按钮数量
+                minSelectedCount={2} // 设置所需的最小选定按钮数量
                 onShopSubmitChange={handleShopSubmitChange} // 传递处理 shopsubmit 的回调函数
                 shopsubmit={showAddButton}
             />
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ConnectionZodiacScreen;
+export default TwoSpecialZodiacScreen;
