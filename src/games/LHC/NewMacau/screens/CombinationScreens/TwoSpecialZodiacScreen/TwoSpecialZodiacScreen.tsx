@@ -10,7 +10,7 @@ const TwoSpecialZodiacScreen = () => {
 
     // 生成附加文本值的函数
     const generateAdditionalText = (text: string): string => {
-        return text === 'b' ? '9.5' : '15.5';
+        return text === 'e' ? '3.5' : '4.0';
     };
 
     // 处理按钮点击事件
