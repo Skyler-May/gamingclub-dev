@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, TouchableOpacity, Text, StyleProp, ViewStyle, TextStyle, ScrollView } from 'react-native';
-import { useNumberContext } from '../../../Contexts/NumberContext';
+import { useNumberContext } from '../../Contexts/NumberContext';
 
 interface ButtonGroupProps {
     itemsPerRow: number;
