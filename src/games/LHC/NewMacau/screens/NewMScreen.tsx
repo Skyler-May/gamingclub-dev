@@ -11,6 +11,9 @@ import GetLotteryResults from "../components/dataSource/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
 import SpecialZodiacScreen from "./CombinationScreens/SpecialZodiacScreen/SpecialZodiacScreen";
 import TwoSpecialZodiacScreen from "./CombinationScreens/TwoSpecialZodiacScreen/TwoSpecialZodiacScreen";
+import ThreeSpecialZodiacScreen from "./CombinationScreens/ThreeSpecialZodiacScreen/ThreeSpecialZodiacScreen";
+import FourSpecialZodiacScreen from "./CombinationScreens/FourSpecialZodiacScreen/FourSpecialZodiacScreen";
+import FiveSpecialZodiacScreen from "./CombinationScreens/FiveSpecialZodiacScreen/FiveSpecialZodiacScreen";
 
 interface Tab {
     label: string;
@@ -31,6 +34,9 @@ const NewMScreen: React.FC = () => {
     ];
     const milkteashop = [
         { key: '1', component: <TwoSpecialZodiacScreen />, title: '2L' },
+        { key: '2', component: <ThreeSpecialZodiacScreen />, title: '3L' },
+        { key: '3', component: <FourSpecialZodiacScreen />, title: '4L' },
+        { key: '4', component: <FiveSpecialZodiacScreen />, title: '5L' },
     ];
 
     const [selectedTab, setSelectedTab] = useState<number>(0);

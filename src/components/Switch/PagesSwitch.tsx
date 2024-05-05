@@ -13,7 +13,7 @@ interface PagesSwitchProps {
 const PagesSwitch: React.FC<PagesSwitchProps> = ({ pages }) => {
     const [currentPage, setCurrentPage] = useState<string>(pages[0].key);
     const scrollViewRef = useRef<ScrollView>(null);
-
+    const { setTitle, setSelectedNumbers, setSelectedButtonIndexes } = useNumberContext(); // 获取setTitle方法
 
     const renderPage = () => {
         const page = pages.find(p => p.key === currentPage);
@@ -24,9 +24,8 @@ const PagesSwitch: React.FC<PagesSwitchProps> = ({ pages }) => {
         setCurrentPage(pages[index].key);
         scrollViewRef.current?.scrollTo({ x: index * 80, animated: true });
         setSelectedNumbers([]);
+        setSelectedButtonIndexes([]);
     };
-
-    const { setTitle, setSelectedNumbers } = useNumberContext(); // 获取setTitle方法
 
     // 设置标题到上下文
     useEffect(() => {
