@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet, Dimensions, TextStyle, ViewStyle, Button } from 'react-native';
-import { useNumberContext } from '../Contexts/NumberContext';
+import { useNumberContext } from '../../Contexts/NumberContext';
 
 interface NumberSelectorProps {
     // 默认属性

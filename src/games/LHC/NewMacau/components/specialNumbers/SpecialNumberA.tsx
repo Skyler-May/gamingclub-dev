@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
-import NumberSelector from '../../../../../components/Selector/NumberSelector';
+import NumberSelector from '../../../../../components/Selector/NumberSelector/NumberSelector';
 
 const SpecialNumberA = () => {
     const handleNumberSelectParent = (number: string | number) => {
