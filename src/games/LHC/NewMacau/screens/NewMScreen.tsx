@@ -5,8 +5,8 @@ import SideTabNavigation from "../../../../components/SideNavigator/SideTabNavig
 import { useNumberContext } from "../../../../components/Contexts/NumberContext";
 
 import PagesSwitch from "../../../../components/Switch/PagesSwitch";
-import SpecialNumberA from "./specialNumberScreens/SpecialNumberScreenA";
-import SpecialNumberB from "./specialNumberScreens/SpecialNumberScreenB";
+import SpecialNumberA from "./SpecialNumberScreens/SpecialNumberScreenA";
+import SpecialNumberB from "./SpecialNumberScreens/SpecialNumberScreenB";
 import GetLotteryResults from "../components/dataSource/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
 
