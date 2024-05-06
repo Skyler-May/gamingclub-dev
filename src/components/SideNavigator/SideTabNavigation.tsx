@@ -15,12 +15,13 @@ interface SideTabNavigationProps {
 }
 
 const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab, setSelectedTab, }) => {
-    const { setSelectedNumbers, setSelectedButtonIndexes } = useNumberContext()
+    const { setSelectedNumbers, setSelectedButtonIndexes, setShowAddDataButton } = useNumberContext()
 
     const handleTabPress = (index: number) => {
         setSelectedTab(index);
         setSelectedNumbers([]);
         setSelectedButtonIndexes([]);
+        setShowAddDataButton(false);
     };
 
 
