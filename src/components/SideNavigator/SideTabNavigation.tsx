@@ -15,16 +15,14 @@ interface SideTabNavigationProps {
 }
 
 const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab, setSelectedTab, }) => {
-    const { setSelectedNumbers, setSelectedButtonIndexes, setCurrentPage } = useNumberContext()
+    const { setSelectedNumbers, setSelectedButtonIndexes } = useNumberContext()
 
     const handleTabPress = (index: number) => {
         setSelectedTab(index);
         setSelectedNumbers([]);
         setSelectedButtonIndexes([]);
-        // setCurrentPage(pages[index].key);
     };
 
-    const gradientColors = ['#0052D4', '#4364F7'];
 
     return (
         <View style={styles.container}>
