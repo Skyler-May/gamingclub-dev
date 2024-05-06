@@ -46,22 +46,22 @@ const NewMScreen: React.FC = () => {
     const tabs: Tab[] = [
         {
             label: 'TM',
-            content: <View><PagesSwitch pages={pages.shop} /></View>,
+            content: <View key="TM"><PagesSwitch pages={pages.shop} /></View>,
             isSelected: false,
         },
         {
             label: 'TX',
-            content: <View><PagesSwitch pages={pages.hotle} /></View>,
+            content: <View key="TX"><PagesSwitch pages={pages.hotle} /></View>,
             isSelected: false,
         },
         {
             label: 'LX',
-            content: <View><PagesSwitch pages={pages.milkteashop} /></View>,
+            content: <View key="LX"><PagesSwitch pages={pages.milkteashop} /></View>,
             isSelected: false,
         },
         {
             label: '咖啡店',
-            content: <View><Text>Content of Tab 4</Text></View>,
+            content: <View key="CoffeeShop"><Text>Content of Tab 4</Text></View>,
             isSelected: false,
         },
     ];
