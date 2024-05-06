@@ -5,8 +5,8 @@ import SideTabNavigation from "../../../../components/SideNavigator/SideTabNavig
 import { useNumberContext } from "../../../../components/Contexts/NumberContext";
 
 import PagesSwitch from "../../../../components/Switch/PagesSwitch";
-import SpecialNumberA from "./SpecialNumberScreens/SpecialNumberScreenA";
-import SpecialNumberB from "./SpecialNumberScreens/SpecialNumberScreenB";
+import SpecialNumberScreenA from "./specialNumberScreens/SpecialNumberScreenA";
+import SpecialNumberScreenB from "./specialNumberScreens/SpecialNumberScreenB";
 import GetLotteryResults from "../components/dataSource/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
 import SpecialZodiacScreen from "./CombinationScreens/SpecialZodiacScreen/SpecialZodiacScreen";
@@ -26,8 +26,8 @@ const NewMScreen: React.FC = () => {
     const shouldShowAddDataButton = selectedNumbers.length >= 1;
 
     const shop = [
-        { key: '1', component: <SpecialNumberA />, title: 'TM A' },
-        { key: '2', component: <SpecialNumberB />, title: 'TM B' },
+        { key: '1', component: <SpecialNumberScreenA />, title: 'TM A' },
+        { key: '2', component: <SpecialNumberScreenB />, title: 'TM B' },
     ];
     const hotle = [
         { key: '1', component: <SpecialZodiacScreen />, title: 'TX' },

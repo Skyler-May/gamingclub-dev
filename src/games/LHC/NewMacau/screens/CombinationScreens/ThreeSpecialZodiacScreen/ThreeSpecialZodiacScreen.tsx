@@ -34,7 +34,7 @@ const ThreeSpecialZodiacScreen = () => {
         <View style={styles.container}>
             {/* 使用 ButtonGroup 组件 */}
             <ButtonGroup
-                itemsPerRow={3}
+                itemsPerRow={2}
                 itemSize={100}
                 height={50}
                 containerStyle={styles.buttonGroupContainer}

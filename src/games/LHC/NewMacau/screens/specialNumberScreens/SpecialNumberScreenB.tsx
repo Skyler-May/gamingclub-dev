@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import NumberSelector from '../../../../../components/Selector/NumberSelector/NumberSelector';
 
-const SpecialNumberA = () => {
+const SpecialNumberScreenB = () => {
     const handleNumberSelectParent = (number: string | number) => {
         console.log(`Number ${number} selected in parent component.`);
     };
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SpecialNumberA;
+export default SpecialNumberScreenB;
