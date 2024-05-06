@@ -19,8 +19,8 @@ interface ButtonGroupProps {
     generateAdditionalText: (text: string) => string; // 新增的 prop，用于生成附加文本值
 
     minSelectedCount: number; // 新增的 prop，用于确定所需的最小选定按钮数量
-    onShopSubmitChange: (submit: boolean) => void; // 新增的 prop，用于处理 shopsubmit 的逻辑
-    shopsubmit: boolean; // Add this line
+    onShowAddDataButtonChange: (AddDataButton: boolean) => void; // 新增的 prop，用于处理 showAddDataButton 的逻辑
+    showAddDataButton: boolean; // Add this line
 }
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -38,9 +38,9 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
     buttonTextArray,
     generateAdditionalText,
     minSelectedCount,
-    onShopSubmitChange,
+    onShowAddDataButtonChange,
 
-    shopsubmit, // Add this line
+    showAddDataButton, // Add this line
 
 }: ButtonGroupProps) => {
     const windowWidth = Dimensions.get('window').width;
@@ -60,9 +60,9 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         console.log("选择的按钮文本：", selectedButtonIndexes.map(index => buttonText[index]));
         console.log("按钮附加文本值：", selectedButtonIndexes.map(index => generateAdditionalText(buttonText[index])));
 
-        // 在这里计算 shopsubmit 的值，并将其传递给父组件处理
-        const shopsubmit = selectedButtonIndexes.length >= minSelectedCount;
-        onShopSubmitChange(shopsubmit);
+        // 在这里计算 showAddDataButton 的值，并将其传递给父组件处理
+        const showAddDataButton = selectedButtonIndexes.length >= minSelectedCount;
+        onShowAddDataButtonChange(showAddDataButton);
     }, [selectedButtonIndexes, buttonText, generateAdditionalText]);
 
     const handlePress = useCallback((index: number) => {
