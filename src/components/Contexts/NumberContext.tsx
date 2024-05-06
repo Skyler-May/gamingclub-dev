@@ -54,11 +54,6 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     const [showAddDataButton, setShowAddDataButton] = useState<boolean>(false);
     const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
     // ================================数字选择器======================================
-    // useEffect(() => {
-    //     setSelectedCount(selectedNumbers.length);
-    //     console.log(selectedNumbers);
-    // }, [selectedNumbers]);
-
     const handleNumberSelect = (number: number) => {
         if (selectedNumbers.includes(number)) {
             setSelectedNumbers(selectedNumbers.filter((n) => n !== number));
@@ -68,10 +63,6 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     };
     // ================================数字选择器======================================
     // ================================文本选择器======================================
-    // useEffect(() => {
-    //     setSelectedCount(selectedButtonIndexes.length);
-    // }, [selectedButtonIndexes]);
-
     const handlePress = useCallback((index: number) => {
         setSelectedButtonIndexes(prevSelectedIndexes => {
             const indexInSelected = prevSelectedIndexes.indexOf(index);
