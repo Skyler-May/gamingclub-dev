@@ -25,36 +25,38 @@ const NewMScreen: React.FC = () => {
     const { selectedNumbers, showAddButton } = useNumberContext();
     const shouldShowAddDataButton = selectedNumbers.length >= 1;
 
-    const shop = [
-        { key: '1', component: <SpecialNumberScreenA />, title: 'TM A' },
-        { key: '2', component: <SpecialNumberScreenB />, title: 'TM B' },
-    ];
-    const hotle = [
-        { key: '1', component: <SpecialZodiacScreen />, title: 'TX' },
-    ];
-    const milkteashop = [
-        { key: '1', component: <TwoSpecialZodiacScreen />, title: '2L' },
-        { key: '2', component: <ThreeSpecialZodiacScreen />, title: '3L' },
-        { key: '3', component: <FourSpecialZodiacScreen />, title: '4L' },
-        { key: '4', component: <FiveSpecialZodiacScreen />, title: '5L' },
-    ];
+    const pages = {
+        shop: [
+            { key: '1', component: <SpecialNumberScreenA />, title: 'TM A' },
+            { key: '2', component: <SpecialNumberScreenB />, title: 'TM B' },
+        ],
+        hotle: [
+            { key: '1', component: <SpecialZodiacScreen />, title: 'TX' },
+        ],
+        milkteashop: [
+            { key: '1', component: <TwoSpecialZodiacScreen />, title: '2L' },
+            { key: '2', component: <ThreeSpecialZodiacScreen />, title: '3L' },
+            { key: '3', component: <FourSpecialZodiacScreen />, title: '4L' },
+            { key: '4', component: <FiveSpecialZodiacScreen />, title: '5L' },
+        ],
+    };
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
 
     const tabs: Tab[] = [
         {
             label: 'TM',
-            content: <View><PagesSwitch pages={shop} /></View>,
+            content: <View><PagesSwitch pages={pages.shop} /></View>,
             isSelected: false,
         },
         {
             label: 'TX',
-            content: <View><PagesSwitch pages={hotle} /></View>,
+            content: <View><PagesSwitch pages={pages.hotle} /></View>,
             isSelected: false,
         },
         {
             label: 'LX',
-            content: <View><PagesSwitch pages={milkteashop} /></View>,
+            content: <View><PagesSwitch pages={pages.milkteashop} /></View>,
             isSelected: false,
         },
         {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNumberContext } from '../Contexts/NumberContext';
-import LinearGradient from 'react-native-linear-gradient';
 
 interface Tab {
     label: string;
@@ -15,14 +14,16 @@ interface SideTabNavigationProps {
     setSelectedTab: (index: number) => void;
 }
 
-const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab, setSelectedTab }) => {
-    const { setSelectedNumbers, setSelectedButtonIndexes } = useNumberContext()
+const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab, setSelectedTab, }) => {
+    const { setSelectedNumbers, setSelectedButtonIndexes, setCurrentPage } = useNumberContext()
 
     const handleTabPress = (index: number) => {
         setSelectedTab(index);
         setSelectedNumbers([]);
         setSelectedButtonIndexes([]);
+        // setCurrentPage(pages[index].key);
     };
+
     const gradientColors = ['#0052D4', '#4364F7'];
 
     return (

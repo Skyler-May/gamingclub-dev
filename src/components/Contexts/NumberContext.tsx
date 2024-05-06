@@ -30,6 +30,8 @@ interface NumberContextType {
     // 页面切换器 标题
     title: string;
     setTitle: React.Dispatch<React.SetStateAction<string>>;
+    currentPage: string;
+    setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
 
     // 弹出 Add 按钮
     showAddButton: boolean;
@@ -43,6 +45,7 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
 
     const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
     const [selectedCount, setSelectedCount] = useState(0); // 新增的状态
+    const [currentPage, setCurrentPage] = useState<string>(''); // 新增 PagesSwitch 组件 状态
     const [additionalText, setAdditionalText] = useState<string>(''); // 新增 PagesSwitch 组件 title 状态
     const [title, setTitle] = useState<string>(''); // 获取 PagesSwitch 中的 title
     const [showAddButton, setshowAddButton] = useState<boolean>(false); // 新增 ButtonGraup 组件状态
@@ -147,7 +150,8 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         // 弹出 Add 按钮
         showAddButton,
         setshowAddButton,
-        // handleShopSubmitChange,
+        currentPage,
+        setCurrentPage,
     };
 
     return (
