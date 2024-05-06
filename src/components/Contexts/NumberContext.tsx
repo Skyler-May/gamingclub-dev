@@ -35,7 +35,7 @@ interface NumberContextType {
 
     // 弹出 Add 按钮
     showAddDataButton: boolean;
-    setshowAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NumberContext = createContext<NumberContextType | undefined>(undefined);
@@ -48,7 +48,7 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     const [currentPage, setCurrentPage] = useState<string>(''); // 新增 PagesSwitch 组件 状态
     const [additionalText, setAdditionalText] = useState<string>(''); // 新增 PagesSwitch 组件 title 状态
     const [title, setTitle] = useState<string>(''); // 获取 PagesSwitch 中的 title
-    const [showAddDataButton, setshowAddDataButton] = useState<boolean>(false); // 新增 ButtonGraup 组件状态
+    const [showAddDataButton, setShowAddDataButton] = useState<boolean>(false); // 新增 ButtonGraup 组件状态
     // ================================数字选择器======================================
     useEffect(() => {
         setSelectedCount(selectedNumbers.length);
@@ -149,7 +149,7 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
 
         // 弹出 Add 按钮
         showAddDataButton,
-        setshowAddDataButton,
+        setShowAddDataButton,
         currentPage,
         setCurrentPage,
     };

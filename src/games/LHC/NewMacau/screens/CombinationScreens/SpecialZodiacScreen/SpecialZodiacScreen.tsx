@@ -35,11 +35,10 @@ const TwoSpecialZodiacScreen = () => {
         indexes.forEach((index) => handlePress(index));
     };
 
-    // // 处理 shopsubmit 的逻辑
-    // const [shopsubmit, setShopsubmit] = useState<boolean>(false); // 控制提交按钮的状态
-    const { showAddButton, setshowAddButton } = useNumberContext()
-    const handleShopSubmitChange = (submit: boolean) => {
-        setshowAddButton(submit);
+    // 处理弹出 showAddDataButton 的逻辑
+    const { showAddDataButton, setShowAddDataButton } = useNumberContext()
+    const handleShowAddButtonChange = (showAddButton: boolean) => {
+        setShowAddDataButton(showAddButton);
     };
 
     return (
@@ -60,8 +59,8 @@ const TwoSpecialZodiacScreen = () => {
                 buttonTextArray={buttonTextArray}
                 generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
                 minSelectedCount={1} // 设置所需的最小选定按钮数量
-                onShopSubmitChange={handleShopSubmitChange} // 传递处理 shopsubmit 的回调函数
-                shopsubmit={showAddButton}
+                onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 shopsubmit 的回调函数
+                showAddDataButton={showAddDataButton}
             />
         </View>
     );

@@ -60,7 +60,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         console.log("选择的按钮文本：", selectedButtonIndexes.map(index => buttonText[index]));
         console.log("按钮附加文本值：", selectedButtonIndexes.map(index => generateAdditionalText(buttonText[index])));
 
-        // 在这里计算 showAddDataButton 的值，并将其传递给父组件处理
+        // 在这里计算弹出 showAddDataButton 的值，并将其传递给父组件处理
         const showAddDataButton = selectedButtonIndexes.length >= minSelectedCount;
         onShowAddDataButtonChange(showAddDataButton);
     }, [selectedButtonIndexes, buttonText, generateAdditionalText]);
