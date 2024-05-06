@@ -24,7 +24,6 @@ const SideTabNavigation: React.FC<SideTabNavigationProps> = ({ tabs, selectedTab
         setShowAddDataButton(false);
     };
 
-
     return (
         <View style={styles.container}>
             <View style={styles.tabsContainer}>
