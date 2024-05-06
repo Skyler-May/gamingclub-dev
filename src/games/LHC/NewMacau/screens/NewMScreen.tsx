@@ -22,8 +22,7 @@ interface Tab {
 }
 
 const NewMScreen: React.FC = () => {
-    const { selectedNumbers, showAddDataButton } = useNumberContext();
-    const shouldShowAddDataButton = selectedNumbers.length >= 1;
+    const { showAddDataButton, popupAddDataButton } = useNumberContext();
 
     const pages = {
         shop: [
@@ -95,7 +94,7 @@ const NewMScreen: React.FC = () => {
                 </View>
             </View>
             <SideTabNavigation tabs={tabs} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-            {shouldShowAddDataButton && <AddDataButton />}
+            {popupAddDataButton && <AddDataButton />}
             {showAddDataButton && <AddDataButton />}
         </View >
     );

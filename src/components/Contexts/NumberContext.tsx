@@ -7,9 +7,10 @@ interface NumberContextType {
     selectedNumbers: number[];
     setSelectedNumbers: React.Dispatch<React.SetStateAction<number[]>>;
     handleNumberSelect: (number: number) => void;
-    selectedCount: number; // 新增的状态
     additionalText?: string;
     setAdditionalText: React.Dispatch<React.SetStateAction<string>>;
+    popupAddDataButton: boolean; // 新增 弹出 AddDataButton 状态
+    setPopupAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 
     // 文本选择器
     selectedButtonIndexes: number[];
@@ -33,7 +34,7 @@ interface NumberContextType {
     currentPage: string;
     setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
 
-    // 弹出 Add 按钮
+    // ButtonGroup 弹出 Add 按钮
     showAddDataButton: boolean;
     setShowAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -42,18 +43,21 @@ const NumberContext = createContext<NumberContextType | undefined>(undefined);
 
 // 提供上下文的组件
 export const NumberProvider: React.FC<any> = ({ children }) => {
-
+    // NumberSelector 选择器
     const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
-    const [selectedCount, setSelectedCount] = useState(0); // 新增的状态
+    const [popupAddDataButton, setPopupAddDataButton] = useState<boolean>(false);// NumberSelector 弹出 AddDataButton 状态
     const [currentPage, setCurrentPage] = useState<string>(''); // 新增 PagesSwitch 组件 状态
+    // PagesSwitch 页面切换器
     const [additionalText, setAdditionalText] = useState<string>(''); // 新增 PagesSwitch 组件 title 状态
     const [title, setTitle] = useState<string>(''); // 获取 PagesSwitch 中的 title
-    const [showAddDataButton, setShowAddDataButton] = useState<boolean>(false); // 新增 ButtonGraup 组件状态
+    // ButtonGraup 选择器
+    const [showAddDataButton, setShowAddDataButton] = useState<boolean>(false);
+    const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
     // ================================数字选择器======================================
-    useEffect(() => {
-        setSelectedCount(selectedNumbers.length);
-        console.log(selectedNumbers);
-    }, [selectedNumbers]);
+    // useEffect(() => {
+    //     setSelectedCount(selectedNumbers.length);
+    //     console.log(selectedNumbers);
+    // }, [selectedNumbers]);
 
     const handleNumberSelect = (number: number) => {
         if (selectedNumbers.includes(number)) {
@@ -64,11 +68,9 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     };
     // ================================数字选择器======================================
     // ================================文本选择器======================================
-    const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
-
-    useEffect(() => {
-        setSelectedCount(selectedButtonIndexes.length);
-    }, [selectedButtonIndexes]);
+    // useEffect(() => {
+    //     setSelectedCount(selectedButtonIndexes.length);
+    // }, [selectedButtonIndexes]);
 
     const handlePress = useCallback((index: number) => {
         setSelectedButtonIndexes(prevSelectedIndexes => {
@@ -123,9 +125,10 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         selectedNumbers,
         setSelectedNumbers,
         handleNumberSelect,
-        selectedCount,
         additionalText,
         setAdditionalText,
+        popupAddDataButton,
+        setPopupAddDataButton,
 
         // 文本选择器
         selectedButtonIndexes,
@@ -152,6 +155,7 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         setShowAddDataButton,
         currentPage,
         setCurrentPage,
+
     };
 
     return (

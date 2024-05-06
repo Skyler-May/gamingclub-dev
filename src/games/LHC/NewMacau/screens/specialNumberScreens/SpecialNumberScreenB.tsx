@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import NumberSelector from '../../../../../components/Selector/NumberSelector/NumberSelector';
+import { useNumberContext } from '../../../../../components/Contexts/NumberContext';
 
 const SpecialNumberScreenB = () => {
     const handleNumberSelectParent = (number: string | number) => {
@@ -63,6 +64,12 @@ const SpecialNumberScreenB = () => {
         return { color: 'white' };
     }
 
+    // 使用上下文 管理弹出 AddDataButton 状态
+    const { popupAddDataButton, setPopupAddDataButton } = useNumberContext()
+    const handlePopupAddDataButtonChange = (popupAddDataButton: boolean) => {
+        setPopupAddDataButton(popupAddDataButton);
+    };
+
     return (
         <View style={styles.container}>
             <NumberSelector
@@ -75,11 +82,14 @@ const SpecialNumberScreenB = () => {
                 startFromOne={true}
                 prependZero={true}
                 renderText={true}
-                additionalText={"波音747"}
+                additionalText={"波音777"}
 
                 selectedNumberButtonStyle={selectedNumberButtonStyle}
                 NumberButtonDefaultTextStyle={NumberButtonDefaultTextStyle}
                 selectedNumberButtonText={selectedNumberButtonText}
+                minSelectedNumberCount={2} // 设置弹出 AddDataButton 按钮的长度
+                onPopupAddDataButtonChange={handlePopupAddDataButtonChange}
+                popupAddDataButton={popupAddDataButton}
             />
         </View>
     );

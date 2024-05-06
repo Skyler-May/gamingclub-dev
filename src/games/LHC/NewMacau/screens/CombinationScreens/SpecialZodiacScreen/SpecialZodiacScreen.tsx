@@ -37,8 +37,8 @@ const TwoSpecialZodiacScreen = () => {
 
     // 处理弹出 showAddDataButton 的逻辑
     const { showAddDataButton, setShowAddDataButton } = useNumberContext()
-    const handleShowAddButtonChange = (showAddButton: boolean) => {
-        setShowAddDataButton(showAddButton);
+    const handleShowAddButtonChange = (showAddDataButton: boolean) => {
+        setShowAddDataButton(showAddDataButton);
     };
 
     return (
@@ -59,7 +59,7 @@ const TwoSpecialZodiacScreen = () => {
                 buttonTextArray={buttonTextArray}
                 generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
                 minSelectedCount={1} // 设置所需的最小选定按钮数量
-                onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 shopsubmit 的回调函数
+                onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}
             />
         </View>

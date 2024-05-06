@@ -22,6 +22,11 @@ interface NumberSelectorProps {
     selectedNumberButtonStyle: (index: number) => ViewStyle;
     selectedNumberButtonText: (index: number) => TextStyle;
     NumberButtonDefaultTextStyle: (index: number) => TextStyle;
+
+    // 弹出 AddDataButton 组件
+    minSelectedNumberCount: number;
+    onPopupAddDataButtonChange: (AddDataButton: boolean) => void;
+    popupAddDataButton: boolean;
 }
 
 const NumberSelector: React.FC<NumberSelectorProps> = ({
@@ -39,6 +44,10 @@ const NumberSelector: React.FC<NumberSelectorProps> = ({
     selectedNumberButtonStyle,
     selectedNumberButtonText,
     NumberButtonDefaultTextStyle,
+
+    minSelectedNumberCount,
+    onPopupAddDataButtonChange,
+    popupAddDataButton,
 }) => {
     const windowWidth = Dimensions.get('window').width;
     const horizontalMargin = (windowWidth - left - right - itemsPerRow * itemSize) / (itemsPerRow + 1);
@@ -65,12 +74,10 @@ const NumberSelector: React.FC<NumberSelectorProps> = ({
         },
     });
 
-    // 弹出指定组件
-    const [selectedCount, setSelectedCount] = useState(1);
-
     useEffect(() => {
-        setSelectedCount(selectedNumbers.length);
-        console.log(selectedNumbers);
+        // 弹出 AddDataButton 组件
+        const popupAddDataButton = selectedNumbers.length >= minSelectedNumberCount;
+        onPopupAddDataButtonChange(popupAddDataButton);
     }, [selectedNumbers]);
 
     // 处理选择逻辑
