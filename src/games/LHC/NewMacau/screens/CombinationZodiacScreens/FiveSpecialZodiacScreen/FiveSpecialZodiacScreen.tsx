@@ -4,12 +4,12 @@ import ButtonGroup from '../../../../../../components/Selector/TextSelector/Butt
 import { useNumberContext } from '../../../../../../components/Contexts/NumberContext';
 
 const FiveSpecialZodiacScreen = () => {
-    const buttonTextArray: string[] = [
+    const defaultButtonTextValue: string[] = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
     ];
 
     // 生成附加文本值的函数
-    const generateAdditionalText = (text: string): string => {
+    const generateAdditionalTextValue = (text: string): string => {
         return text === 'b' ? '80.5' : '90.5';
     };
 
@@ -40,13 +40,12 @@ const FiveSpecialZodiacScreen = () => {
                 containerStyle={styles.buttonGroupContainer}
                 buttonStyle={styles.button}
                 selectedButtonStyle={styles.selectedButton}
-                buttonText={buttonTextArray}
+                defaultButtonTextValue={defaultButtonTextValue}
                 onPress={handleMultiplePress}
                 Left={100}
                 Right={0}
                 defaultText={true}
-                buttonTextArray={buttonTextArray}
-                generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
+                generateAdditionalTextValue={generateAdditionalTextValue} // 传递生成附加文本值的函数
                 minSelectedCount={5} // 设置所需的最小选定按钮数量
                 onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}

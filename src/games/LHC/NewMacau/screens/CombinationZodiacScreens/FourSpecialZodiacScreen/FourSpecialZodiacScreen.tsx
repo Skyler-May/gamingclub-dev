@@ -3,14 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import ButtonGroup from '../../../../../../components/Selector/TextSelector/ButtonGroup';
 import { useNumberContext } from '../../../../../../components/Contexts/NumberContext';
 
-const ThreeSpecialZodiacScreen = () => {
-    const buttonTextArray: string[] = [
+const FourSpecialZodiacScreen = () => {
+    const defaultButtonTextValue: string[] = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
     ];
 
     // 生成附加文本值的函数
-    const generateAdditionalText = (text: string): string => {
-        return text === 'e' ? '8.5' : '10.5';
+    const generateAdditionalTextValue = (text: string): string => {
+        return text === 'b' ? '25.5' : '30.5';
     };
 
     // 处理按钮点击事件
@@ -40,14 +40,13 @@ const ThreeSpecialZodiacScreen = () => {
                 containerStyle={styles.buttonGroupContainer}
                 buttonStyle={styles.button}
                 selectedButtonStyle={styles.selectedButton}
-                buttonText={buttonTextArray}
+                defaultButtonTextValue={defaultButtonTextValue}
                 onPress={handleMultiplePress}
                 Left={100}
                 Right={0}
                 defaultText={true}
-                buttonTextArray={buttonTextArray}
-                generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
-                minSelectedCount={3} // 设置所需的最小选定按钮数量
+                generateAdditionalTextValue={generateAdditionalTextValue} // 传递生成附加文本值的函数
+                minSelectedCount={4} // 设置所需的最小选定按钮数量
                 onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}
             />
@@ -78,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ThreeSpecialZodiacScreen;
+export default FourSpecialZodiacScreen;

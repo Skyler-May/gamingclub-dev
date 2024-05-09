@@ -9,11 +9,11 @@ import SpecialNumberScreenA from "./specialNumberScreens/SpecialNumberScreenA";
 import SpecialNumberScreenB from "./specialNumberScreens/SpecialNumberScreenB";
 import GetLotteryResults from "../components/dataSource/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
-import SpecialZodiacScreen from "./CombinationScreens/SpecialZodiacScreen/SpecialZodiacScreen";
-import TwoSpecialZodiacScreen from "./CombinationScreens/TwoSpecialZodiacScreen/TwoSpecialZodiacScreen";
-import ThreeSpecialZodiacScreen from "./CombinationScreens/ThreeSpecialZodiacScreen/ThreeSpecialZodiacScreen";
-import FourSpecialZodiacScreen from "./CombinationScreens/FourSpecialZodiacScreen/FourSpecialZodiacScreen";
-import FiveSpecialZodiacScreen from "./CombinationScreens/FiveSpecialZodiacScreen/FiveSpecialZodiacScreen";
+import SpecialZodiacScreen from "./SpecialZodiacScreen/SpecialZodiacScreen";
+import TwoSpecialZodiacScreen from "./CombinationZodiacScreens/TwoSpecialZodiacScreen/TwoSpecialZodiacScreen";
+import ThreeSpecialZodiacScreen from "./CombinationZodiacScreens/ThreeSpecialZodiacScreen/ThreeSpecialZodiacScreen";
+import FourSpecialZodiacScreen from "./CombinationZodiacScreens/FourSpecialZodiacScreen/FourSpecialZodiacScreen";
+import FiveSpecialZodiacScreen from "./CombinationZodiacScreens/FiveSpecialZodiacScreen/FiveSpecialZodiacScreen";
 
 interface Tab {
     label: string;

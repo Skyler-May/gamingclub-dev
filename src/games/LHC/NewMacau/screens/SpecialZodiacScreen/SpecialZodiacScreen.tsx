@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import ButtonGroup from '../../../../../../components/Selector/TextSelector/ButtonGroup';
-import { useNumberContext } from '../../../../../../components/Contexts/NumberContext';
+import ButtonGroup from '../../../../../components/Selector/TextSelector/ButtonGroup';
+import { useNumberContext } from '../../../../../components/Contexts/NumberContext';
 
 const TwoSpecialZodiacScreen = () => {
-    const buttonTextArray: string[] = [
+    const defaultButtonTextValue: string[] = [
         'A',
         'B',
         'C',
@@ -20,7 +20,7 @@ const TwoSpecialZodiacScreen = () => {
     ];
 
     // 生成附加文本值的函数
-    const generateAdditionalText = (text: string): string => {
+    const generateAdditionalTextValue = (text: string): string => {
         return text === 'A' ? '9.5' : '11.5';
     };
 
@@ -51,13 +51,12 @@ const TwoSpecialZodiacScreen = () => {
                 containerStyle={styles.buttonGroupContainer}
                 buttonStyle={styles.button}
                 selectedButtonStyle={styles.selectedButton}
-                buttonText={buttonTextArray}
+                defaultButtonTextValue={defaultButtonTextValue}
                 onPress={handleMultiplePress}
                 Left={100}
                 Right={0}
                 defaultText={true}
-                buttonTextArray={buttonTextArray}
-                generateAdditionalText={generateAdditionalText} // 传递生成附加文本值的函数
+                generateAdditionalTextValue={generateAdditionalTextValue} // 传递生成附加文本值的函数
                 minSelectedCount={1} // 设置所需的最小选定按钮数量
                 onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}
