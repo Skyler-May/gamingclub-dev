@@ -8,14 +8,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNumberContext } from '../Contexts/NumberContext';
 import { RootStackParamList } from '../../../types';
 
-
 interface AddDataButtonProps {
 
 }
 
 const AddDataButton: React.FC<AddDataButtonProps> = () => {
-    // const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
-    const { selectedNumbers, setSelectedNumbers, title, additionalText } = useNumberContext();
+    const { selectedNumbers,
+        setSelectedNumbers,
+        title,
+        additionalText,
+        selectedButtonIndexes,
+        setSelectedButtonIndexes,
+        defaultButtonTextValue,
+        generateAdditionalTextValue,
+    } = useNumberContext();
     const [selectedAmounts, setselectedAmounts] = useState('');
     const [defaultAmounts, setDefaultAmounts] = useState<number[]>([5, 10, 20, 50, 100]);
     const [isEditingDefaultAmount, setIsEditingDefaultAmount] = useState<boolean>(false);
@@ -24,7 +30,8 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     console.log('Title from context:', title);
-    console.log('所选号码长度:', selectedNumbers.length);
+    // console.log('所选号码长度:', selectedNumbers.length);
+    console.log('buttonText:', defaultButtonTextValue);
 
     // 生成指定范围内的随机整数
     function getRandomInt(min: number, max: number): number {
@@ -122,8 +129,15 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     };
 
 
-    // 处理添加数据按钮的逻辑
-    const handleAddDataButtonPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
+
+
+
+
+
+
+
+    // 处理 数字商品数据 添加购物车逻辑 (调用第一个函数)
+    const handleAddNumberToCartPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
         let data = selectedNumbers.map(number => [selectedAmounts, number]);
 
         if (selectedNumbers.length < 0) {
@@ -133,7 +147,6 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
             Alert.alert('提示', '请输入有效金额');
             return;
         }
-        // 将所选项目添加到购物车中
         // 将所选项目添加到购物车中
         const newCartItems: CartItem[] = [];
         selectedNumbers.forEach(number => {
@@ -172,6 +185,67 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
         navigation.navigate('Shop', { tabBarVisible: true });
     };
+
+
+
+    // 处理 文本商品数据 添加购物车逻辑 (调用第二个函数)
+    const handleAddTextToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        // selectedAmounts: string,
+    ) => {
+        // 逻辑判断
+        if (selectedNumbers.length < 0) {
+            Alert.alert('提示', '请输入有效的值');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
+
+        // 创建要添加到购物车的新项目数组
+        const newCartItems: CartItem[] = selectedButtonIndexes.map(index => {
+            return {
+                id: index, // 使用按钮索引作为购物车项目的ID
+                name: `${title} - @${defaultButtonTextValue[index]}`, // 使用格式化后的数字
+                quantity: 1, // 默认数量为1
+                price: parseFloat(selectedAmounts),
+                additionalText: generateAdditionalTextValue[index] || '', // 使用按钮的附加文本值，如果未定义则为空字符串
+            };
+        });
+
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart items:', newCartItems);
+
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, ...newCartItems];
+        setCartItems(updatedCartItems);
+
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
+
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItems);
+
+        // 清空金额输入框
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
+
+
+
+
+
+
+
+
+
+    const [condition, setCondition] = useState<string[]>(['TM', 'TX', 'LX', 'XX', 'ZX']);
 
     return (
         <View style={styles.container}>
@@ -251,11 +325,17 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     onChangeText={handleInputAmountsChange}
                     value={selectedAmounts}
                 />
-                <TouchableOpacity style={styles.addDataButton} onPress={() => handleAddDataButtonPress(selectedNumbers, cartItems, setCartItems)}>
+                <TouchableOpacity style={styles.addDataButton} onPress={() => {
+                    if (condition) {
+                        handleAddTextToCartPress(cartItems, setCartItems);
+                    } else {
+                        handleAddNumberToCartPress(selectedNumbers, cartItems, setCartItems);
+                    }
+                }}>
                     <Text style={styles.addDataButtonText}>添加</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </View >
     );
 };
 

@@ -12,12 +12,10 @@ interface ButtonGroupProps {
     containerStyle?: StyleProp<ViewStyle>;
     buttonStyle?: StyleProp<ViewStyle>;
     selectedButtonStyle?: StyleProp<ViewStyle>;
-    buttonText: string[];
+    defaultButtonTextValue: string[];
+    generateAdditionalTextValue: (text: string) => string; // 新增的 prop，用于生成附加文本值
     onPress: (indexes: number[]) => void;
     textStyle?: StyleProp<TextStyle>;
-    buttonTextArray: string[];
-    generateAdditionalText: (text: string) => string; // 新增的 prop，用于生成附加文本值
-
     minSelectedCount: number; // 新增的 prop，用于确定所需的最小选定按钮数量
     onShowAddDataButtonChange: (AddDataButton: boolean) => void; // 新增的 prop，用于处理 showAddDataButton 的逻辑
     showAddDataButton: boolean; // Add this line
@@ -29,41 +27,29 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
     itemsPerRow,
     itemSize,
     height,
-    containerStyle = {},
-    buttonStyle = {},
-    selectedButtonStyle = {},
-    buttonText = [],
-    onPress = (_indexes: number[]) => { },
-    textStyle = {},
-    buttonTextArray,
-    generateAdditionalText,
+    containerStyle,
+    buttonStyle,
+    selectedButtonStyle,
+    defaultButtonTextValue,
+    generateAdditionalTextValue,
+    textStyle,
     minSelectedCount,
     onShowAddDataButtonChange,
-
-    showAddDataButton, // Add this line
-
 }: ButtonGroupProps) => {
     const windowWidth = Dimensions.get('window').width;
     const horizontalMargin = (windowWidth - Left - Right - itemsPerRow * itemSize) / (itemsPerRow + 1);
     const verticalMargin = horizontalMargin;
-    // const [selectedCount, setSelectedCount] = useState<number>(1);
-    const {
-        selectedButtonIndexes,
-        setSelectedButtonIndexes,
-        additionalTextValues: additionalValues,
-        buttonText: contextButtonText
-    } = useNumberContext();
+    const { selectedButtonIndexes, setSelectedButtonIndexes, setDefaultButtonTextValue, setGenerateAdditionalTextValue } = useNumberContext();
 
     useEffect(() => {
-        // setSelectedCount(selectedButtonIndexes.length);
-        console.log("选定的按钮索引:", selectedButtonIndexes);
-        console.log("选择的按钮文本：", selectedButtonIndexes.map(index => buttonText[index]));
-        console.log("按钮附加文本值：", selectedButtonIndexes.map(index => generateAdditionalText(buttonText[index])));
+        // console.log("选定的按钮索引ID:", selectedButtonIndexes);
+        // console.log("defaultButtonTextValue", selectedButtonIndexes.map(index => defaultButtonTextValue[index]));
+        // console.log("generateAdditionalTextValue", selectedButtonIndexes.map(index => generateAdditionalTextValue(defaultButtonTextValue[index])));
 
         // 在这里计算弹出 showAddDataButton 的值，并将其传递给父组件处理
         const showAddDataButton = selectedButtonIndexes.length >= minSelectedCount;
         onShowAddDataButtonChange(showAddDataButton);
-    }, [selectedButtonIndexes, buttonText, generateAdditionalText]);
+    }, [selectedButtonIndexes, defaultButtonTextValue, generateAdditionalTextValue]);
 
     const handlePress = useCallback((index: number) => {
         setSelectedButtonIndexes(prevSelectedIndexes => {
@@ -75,6 +61,12 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
             }
         });
     }, []);
+
+    useEffect(() => {
+        // 在这里更新上下文中的值，当 selectedButtonIndexes 更新时触发
+        setDefaultButtonTextValue(selectedButtonIndexes.map(index => defaultButtonTextValue[index]));
+        setGenerateAdditionalTextValue(selectedButtonIndexes.map(index => generateAdditionalTextValue(defaultButtonTextValue[index])));
+    }, [selectedButtonIndexes]);
 
     const renderButton = useCallback((text: string, index: number) => {
         const isButtonSelected = selectedButtonIndexes.includes(index);
@@ -112,13 +104,13 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
                     styles.additionalDefaultTextColor,
                     isButtonSelected ? { color: 'white' } : textStyle
                 ]}>
-                    {generateAdditionalText(text)} {/* 使用传入的函数生成附加文本值 */}
+                    {generateAdditionalTextValue(text)} {/* 使用传入的函数生成附加文本值 */}
                 </Text>
             </TouchableOpacity>
         );
-    }, [selectedButtonIndexes, textStyle, buttonStyle, selectedButtonStyle, itemsPerRow, itemSize, height, horizontalMargin, verticalMargin, handlePress, generateAdditionalText]);
+    }, [selectedButtonIndexes, textStyle, buttonStyle, selectedButtonStyle, itemsPerRow, itemSize, height, horizontalMargin, verticalMargin, handlePress, generateAdditionalTextValue]);
 
-    const buttons = useMemo(() => buttonText.map(renderButton), [buttonText, renderButton]);
+    const buttons = useMemo(() => defaultButtonTextValue.map(renderButton), [defaultButtonTextValue, renderButton]);
 
     return (
         <ScrollView>

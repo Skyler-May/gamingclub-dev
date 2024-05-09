@@ -13,11 +13,15 @@ interface NumberContextType {
     setPopupAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 
     // 文本选择器
+    defaultButtonTextValue: string[];
+    setDefaultButtonTextValue: React.Dispatch<React.SetStateAction<string[]>>;
+    generateAdditionalTextValue: string[];
+    setGenerateAdditionalTextValue: React.Dispatch<React.SetStateAction<string[]>>;
     selectedButtonIndexes: number[];
     setSelectedButtonIndexes: React.Dispatch<React.SetStateAction<number[]>>;
-    additionalTextValues: { [key: string]: string };
-    buttonText: string[];
-    handlePress: (index: number, buttonText: string[]) => void;
+    // ButtonGroup 弹出 Add 按钮
+    showAddDataButton: boolean;
+    setShowAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 
     // 购物车相关上下文
     cartItems: CartItem[];
@@ -33,10 +37,6 @@ interface NumberContextType {
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     currentPage: string;
     setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
-
-    // ButtonGroup 弹出 Add 按钮
-    showAddDataButton: boolean;
-    setShowAddDataButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NumberContext = createContext<NumberContextType | undefined>(undefined);
@@ -47,12 +47,14 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
     const [popupAddDataButton, setPopupAddDataButton] = useState<boolean>(false);// NumberSelector 弹出 AddDataButton 状态
     const [currentPage, setCurrentPage] = useState<string>(''); // 新增 PagesSwitch 组件 状态
+    const [additionalText, setAdditionalText] = useState<string>('');
     // PagesSwitch 页面切换器
-    const [additionalText, setAdditionalText] = useState<string>(''); // 新增 PagesSwitch 组件 title 状态
     const [title, setTitle] = useState<string>(''); // 获取 PagesSwitch 中的 title
     // ButtonGraup 选择器
     const [showAddDataButton, setShowAddDataButton] = useState<boolean>(false);
     const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
+    const [defaultButtonTextValue, setDefaultButtonTextValue] = useState<string[]>([]); // 添加类型<string[]>
+    const [generateAdditionalTextValue, setGenerateAdditionalTextValue] = useState<string[]>([]); // 添加类型<string[]>
     // ================================数字选择器======================================
     const handleNumberSelect = (number: number) => {
         if (selectedNumbers.includes(number)) {
@@ -61,24 +63,18 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
             setSelectedNumbers([...selectedNumbers, number]);
         }
     };
+
     // ================================数字选择器======================================
     // ================================文本选择器======================================
-    const handlePress = useCallback((index: number) => {
-        setSelectedButtonIndexes(prevSelectedIndexes => {
-            const indexInSelected = prevSelectedIndexes.indexOf(index);
-            if (indexInSelected === -1) {
-                return [...prevSelectedIndexes, index];
-            } else {
-                return prevSelectedIndexes.filter(i => i !== index);
-            }
-        });
-    }, []);
     // ================================文本选择器======================================
     // ================================购物车======================================
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     console.log('NumberDataProvider is called with selectedNumbers:', selectedNumbers, 'and cartItems:', cartItems);
     console.log('Using NumberDataContext with selectedNumbers:', selectedNumbers, 'and cartItems:', cartItems);
     console.log('Using NumberDataContext with additionalText:', additionalText, 'and cartItems:', cartItems);
+
+    { console.log("Updated defaultButtonTextValue:", defaultButtonTextValue) }
+    { console.log("Updated generateAdditionalTextValue:", generateAdditionalTextValue) }
 
     const addItemToCart = (item: CartItem) => {
         console.log('Adding item to cart:', item);
@@ -122,11 +118,12 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         setPopupAddDataButton,
 
         // 文本选择器
+        defaultButtonTextValue,
+        setDefaultButtonTextValue,
+        generateAdditionalTextValue,
+        setGenerateAdditionalTextValue,
         selectedButtonIndexes,
         setSelectedButtonIndexes,
-        additionalTextValues: {},
-        buttonText: [],
-        handlePress,
 
         // 购物车相关上下文
         cartItems,
