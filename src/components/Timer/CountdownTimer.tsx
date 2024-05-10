@@ -177,7 +177,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
             // backgroundColor: '#0A716B',
         }}>
             <Icon name="alarm-outline" size={24} color="#900" />
-            <View style={{ marginLeft: 10, width: 100 }}>
+            <View style={{ marginLeft: 10, width: 110, }}>
                 {sleepReminder ?
                     <Text>
                         {sleepReminder}
@@ -185,8 +185,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ sleepStartTime = '21:15
                     <Text style={{
                         fontSize: 24,
                         fontWeight: 'bold',
-                        color: 'orangered',
-                        // backgroundColor: '#0A716B',
+                        color: '#900',
+                        // backgroundColor: 'blue',
                     }}>
                         {formatTime(remainingTime)}
                     </Text>
