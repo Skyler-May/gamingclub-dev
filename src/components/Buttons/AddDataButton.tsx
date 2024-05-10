@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { View, Text, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
@@ -21,6 +21,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         setSelectedButtonIndexes,
         defaultButtonTextValue,
         generateAdditionalTextValue,
+        selectedTab,
     } = useNumberContext();
     const [selectedAmounts, setselectedAmounts] = useState('');
     const [defaultAmounts, setDefaultAmounts] = useState<number[]>([5, 10, 20, 50, 100]);
@@ -293,11 +294,25 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
+    const [condition1, setCondition1] = useState(false);
+    const [condition2, setCondition2] = useState(false);
+
+    useEffect(() => {
+        if (selectedTab === 0) {
+            setCondition1(true);
+            setCondition2(false); // 确保只有一个条件为true
+        } else if (selectedTab === 1) {
+            setCondition1(false); // 确保只有一个条件为true
+            setCondition2(true);
+        } else {
+            setCondition1(false);
+            setCondition2(false);
+        }
+    }, [selectedTab]);
 
 
 
-    const condition = 'TM';
-    const conditionTX = 'TX';
+
 
     return (
         <View style={styles.container}>
@@ -377,27 +392,25 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     onChangeText={handleInputAmountsChange}
                     value={selectedAmounts}
                 />
+                {/* <TouchableOpacity style={styles.addDataButton} onPress={() => {
+                    handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
+                    handleAddLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue,);
+                    handleAddTxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue,);
+                }}>
+                    <Text style={styles.addDataButtonText}>添加</Text>
+                </TouchableOpacity> */}
                 <TouchableOpacity style={styles.addDataButton} onPress={() => {
-                    if (condition) {
-                        handleAddLxToCartPress(
-                            cartItems,
-                            setCartItems,
-                            defaultButtonTextValue,
-                            generateAdditionalTextValue,
-                        );
+                    if (condition1) {
+                        handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
+                    } else if (condition2) {
+                        handleAddTxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
                     } else {
-                        // handleAddTxToCartPress(
-                        //     cartItems,
-                        //     setCartItems,
-                        //     defaultButtonTextValue,
-                        //     generateAdditionalTextValue,
-                        // );
+                        handleAddLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
                     }
-                    // handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
-
                 }}>
                     <Text style={styles.addDataButtonText}>添加</Text>
                 </TouchableOpacity>
+
             </View>
         </View >
     );

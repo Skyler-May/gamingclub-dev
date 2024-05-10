@@ -22,7 +22,7 @@ interface Tab {
 }
 
 const NewMScreen: React.FC = () => {
-    const { showAddDataButton, popupAddDataButton } = useNumberContext();
+    const { showAddDataButton, popupAddDataButton, selectedTab, setSelectedTab } = useNumberContext();
 
     const pages = {
         shop: [
@@ -39,8 +39,6 @@ const NewMScreen: React.FC = () => {
             { key: '4', component: <FiveSpecialZodiacScreen />, title: '5L' },
         ],
     };
-
-    const [selectedTab, setSelectedTab] = useState<number>(0);
 
     const tabs: Tab[] = [
         {

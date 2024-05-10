@@ -39,8 +39,8 @@ interface NumberContextType {
     setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
 
     // SideTabNavigation 侧边选项卡
-    selectedTab: string;
-    setSelectedTab: (index: string) => void;
+    selectedTab: number;
+    setSelectedTab: (index: number) => void;
 
     // AddDataButton 按钮
     selectedAmounts: string;
@@ -64,7 +64,7 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     const [defaultButtonTextValue, setDefaultButtonTextValue] = useState<string[]>([]); // 添加类型<string[]>
     const [generateAdditionalTextValue, setGenerateAdditionalTextValue] = useState<string[]>([]); // 添加类型<string[]>
     // SideTabNavigation 侧边选项卡
-    const [selectedTab, setSelectedTab] = useState<string>('');
+    const [selectedTab, setSelectedTab] = useState<number>(0);
     // AddDataButton 按钮
     const [selectedAmounts, setselectedAmounts] = useState('');
     // ================================数字选择器======================================
