@@ -60,6 +60,7 @@ const TwoSpecialZodiacScreen = () => {
                 minSelectedCount={1} // 设置所需的最小选定按钮数量
                 onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}
+                maxSelectedButtonCount={12}
             />
         </View>
     );
