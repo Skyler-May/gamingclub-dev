@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { CartItem } from '../Shop/ShoppingCart';
+import { CartItem } from '../Shop/Carts/ShoppingCart';
 
 // 定义上下文
 interface NumberContextType {
@@ -37,6 +37,14 @@ interface NumberContextType {
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     currentPage: string;
     setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
+
+    // SideTabNavigation 侧边选项卡
+    selectedTab: string;
+    setSelectedTab: (index: string) => void;
+
+    // AddDataButton 按钮
+    selectedAmounts: string;
+    setselectedAmounts: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const NumberContext = createContext<NumberContextType | undefined>(undefined);
@@ -55,6 +63,10 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
     const [selectedButtonIndexes, setSelectedButtonIndexes] = useState<number[]>([]);
     const [defaultButtonTextValue, setDefaultButtonTextValue] = useState<string[]>([]); // 添加类型<string[]>
     const [generateAdditionalTextValue, setGenerateAdditionalTextValue] = useState<string[]>([]); // 添加类型<string[]>
+    // SideTabNavigation 侧边选项卡
+    const [selectedTab, setSelectedTab] = useState<string>('');
+    // AddDataButton 按钮
+    const [selectedAmounts, setselectedAmounts] = useState('');
     // ================================数字选择器======================================
     const handleNumberSelect = (number: number) => {
         if (selectedNumbers.includes(number)) {
@@ -75,6 +87,8 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
 
     { console.log("Updated defaultButtonTextValue:", defaultButtonTextValue) }
     { console.log("Updated generateAdditionalTextValue:", generateAdditionalTextValue) }
+
+    { console.log("Updated selectedTab:", selectedTab) }
 
     const addItemToCart = (item: CartItem) => {
         console.log('Adding item to cart:', item);
@@ -144,6 +158,13 @@ export const NumberProvider: React.FC<any> = ({ children }) => {
         currentPage,
         setCurrentPage,
 
+        // SideTabNavigation 侧边选项卡
+        selectedTab,
+        setSelectedTab,
+
+        // AddDataButton 按钮
+        selectedAmounts,
+        setselectedAmounts,
     };
 
     return (

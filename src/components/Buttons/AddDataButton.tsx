@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './styles';
 import { View, Text, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
-import { CartItem } from '../Shop/ShoppingCart';
+import { CartItem } from '../Shop/Carts/ShoppingCart';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNumberContext } from '../Contexts/NumberContext';
@@ -260,7 +260,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
         const newCartItem: CartItem = {
             id: selectedIndex, // 使用按钮索引作为购物车项目的ID
-            name: `${title} — [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
+            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
             quantity: 1, // 默认数量为1
             price: parseFloat(selectedAmounts),
             additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
