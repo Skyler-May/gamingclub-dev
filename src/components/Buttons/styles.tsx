@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     },
     count: {
         color: 'red', // 设置内部文本的颜色为红色，您可以根据需要更改颜色
-        fontSize: 16,
+        fontSize: 14,
     },
 });
 
