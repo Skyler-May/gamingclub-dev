@@ -83,6 +83,7 @@ const SpecialNumberScreenB = () => {
                 prependZero={true}
                 renderText={true}
                 additionalText={"波音777"}
+                maxSelectedNumberCount={1}
 
                 selectedNumberButtonStyle={selectedNumberButtonStyle}
                 NumberButtonDefaultTextStyle={NumberButtonDefaultTextStyle}
