@@ -34,18 +34,30 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     // console.log('所选号码长度:', selectedNumbers.length);
     console.log('buttonText:', defaultButtonTextValue);
 
-    // 生成指定范围内的随机整数
-    function getRandomInt(min: number, max: number): number {
+
+
+
+
+
+
+
+
+
+
+
+
+    // 生成指定范围内的 TM 随机整数
+    function getTmRandomInt(min: number, max: number): number {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // 生成指定范围内的随机数数组
-    function getRandomNumbers(min: number, max: number, count: number): number[] {
+    // 生成指定范围内的 TM 随机数数组
+    function getTmRandomNumbers(min: number, max: number, count: number): number[] {
         const numbers: number[] = [];
         while (numbers.length < count) {
-            const selectedNumber = getRandomInt(min, max);
+            const selectedNumber = getTmRandomInt(min, max);
             if (!numbers.includes(selectedNumber)) {
                 numbers.push(selectedNumber);
             }
@@ -53,12 +65,214 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         return numbers;
     }
 
-    // 定义点击事件
-    const handleClick = () => {
-        const selectedNumbers = getRandomNumbers(1, 49, 48); // 生成10个范围在1到100之间的随机数
+    // 定义 TM 点击事件
+    const handleTmClick = () => {
+        const selectedNumbers = getTmRandomNumbers(1, 49, 48); // 生成48个范围在1到49之间的随机数
         setSelectedNumbers([])
         setSelectedNumbers(selectedNumbers); // 更新上下文中的选定数字
     };
+
+    // 生成指定范围内的 TX 随机整数
+    function getTxRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 生成指定范围内的 TX 随机数数组
+    function getTxRandomNumbers(min: number, max: number, count: number): number[] {
+        const numbers: number[] = [];
+        while (numbers.length < count) {
+            const selectedButtonIndexes = getTxRandomInt(min, max);
+            if (!numbers.includes(selectedButtonIndexes)) {
+                numbers.push(selectedButtonIndexes);
+            }
+        }
+        return numbers;
+    }
+
+    // 定义 TX 点击事件
+    const handleTxClick = () => {
+        const selectedButtonIndexes = getTxRandomNumbers(1, 11, 1); // 生成1个范围在1到12之间的随机数
+        setSelectedButtonIndexes([])
+        setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
+    };
+
+    // 生成指定范围内的 TwoLx 随机整数
+    function getTwoLxRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 生成指定范围内的 TwoLx 随机数数组
+    function getTwoLxRandomNumbers(min: number, max: number, count: number): number[] {
+        const numbers: number[] = [];
+        while (numbers.length < count) {
+            const selectedButtonIndexes = getTwoLxRandomInt(min, max);
+            if (!numbers.includes(selectedButtonIndexes)) {
+                numbers.push(selectedButtonIndexes);
+            }
+        }
+        return numbers;
+    }
+
+    // 定义 TwoLx 点击事件
+    const handleTwoLxClick = () => {
+        const selectedButtonIndexes = getTwoLxRandomNumbers(1, 11, 2); // 生成1个范围在1到12之间的随机数
+        setSelectedButtonIndexes([])
+        setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
+    };
+
+
+    // 生成指定范围内的 ThreeLx 随机整数
+    function getThreeLxRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 生成指定范围内的 ThreeLx 随机数数组
+    function getThreeLxRandomNumbers(min: number, max: number, count: number): number[] {
+        const numbers: number[] = [];
+        while (numbers.length < count) {
+            const selectedButtonIndexes = getThreeLxRandomInt(min, max);
+            if (!numbers.includes(selectedButtonIndexes)) {
+                numbers.push(selectedButtonIndexes);
+            }
+        }
+        return numbers;
+    }
+
+    // 定义 ThreeLx 点击事件
+    const handleThreeLxClick = () => {
+        const selectedButtonIndexes = getThreeLxRandomNumbers(1, 11, 3); // 生成1个范围在1到12之间的随机数
+        setSelectedButtonIndexes([])
+        setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
+    };
+
+    // 生成指定范围内的 FourLx 随机整数
+    function getFourLxRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 生成指定范围内的 FourLx 随机数数组
+    function getFourLxRandomNumbers(min: number, max: number, count: number): number[] {
+        const numbers: number[] = [];
+        while (numbers.length < count) {
+            const selectedButtonIndexes = getFourLxRandomInt(min, max);
+            if (!numbers.includes(selectedButtonIndexes)) {
+                numbers.push(selectedButtonIndexes);
+            }
+        }
+        return numbers;
+    }
+
+    // 定义 FourLx 点击事件
+    const handleFourLxClick = () => {
+        const selectedButtonIndexes = getFourLxRandomNumbers(1, 11, 4); // 生成1个范围在1到12之间的随机数
+        setSelectedButtonIndexes([])
+        setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
+    };
+
+    // 生成指定范围内的 FiveLx 随机整数
+    function getFiveLxRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 生成指定范围内的 FiveLx 随机数数组
+    function getFiveLxRandomNumbers(min: number, max: number, count: number): number[] {
+        const numbers: number[] = [];
+        while (numbers.length < count) {
+            const selectedButtonIndexes = getFiveLxRandomInt(min, max);
+            if (!numbers.includes(selectedButtonIndexes)) {
+                numbers.push(selectedButtonIndexes);
+            }
+        }
+        return numbers;
+    }
+
+    // 定义 FiveLx 点击事件
+    const handleFiveLxClick = () => {
+        const selectedButtonIndexes = getFiveLxRandomNumbers(1, 11, 5); // 生成1个范围在1到12之间的随机数
+        setSelectedButtonIndexes([])
+        setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
+    };
+
+    // 添加按钮逻辑状态
+    const [randomSituation1, setRandomSituation1] = useState(false);
+    const [randomSituation2, setRandomSituation2] = useState(false);
+    const [randomSituation3, setRandomSituation3] = useState(false);
+    const [randomSituation4, setRandomSituation4] = useState(false);
+    const [randomSituation5, setRandomSituation5] = useState(false);
+    const [randomSituation6, setRandomSituation6] = useState(false);
+
+    useEffect(() => {
+        if (title === 'TM A' || title === 'TM B') {
+            setRandomSituation1(true);
+            setRandomSituation2(false); // 确保只有一个条件为true
+            setRandomSituation3(false);
+            setRandomSituation4(false);
+            setRandomSituation5(false);
+            setRandomSituation6(false);
+        } else if (title === 'TX') {
+            setRandomSituation1(false);
+            setRandomSituation2(true); // 确保只有一个条件为true
+            setRandomSituation3(false);
+            setRandomSituation4(false);
+            setRandomSituation5(false);
+            setRandomSituation6(false);
+        } else if (title === '2L') {
+            setRandomSituation1(false);
+            setRandomSituation2(false); // 确保只有一个条件为true
+            setRandomSituation3(true);
+            setRandomSituation4(false);
+            setRandomSituation5(false);
+            setRandomSituation6(false);
+        } else if (title === '3L') {
+            setRandomSituation1(false);
+            setRandomSituation2(false); // 确保只有一个条件为true
+            setRandomSituation3(false);
+            setRandomSituation4(true);
+            setRandomSituation5(false);
+            setRandomSituation6(false);
+        } else if (title === '4L') {
+            setRandomSituation1(false);
+            setRandomSituation2(false); // 确保只有一个条件为true
+            setRandomSituation3(false);
+            setRandomSituation4(false);
+            setRandomSituation5(true);
+            setRandomSituation6(false);
+        }
+        else if (title === '5L') {
+            setRandomSituation1(false);
+            setRandomSituation2(false); // 确保只有一个条件为true
+            setRandomSituation3(false);
+            setRandomSituation4(false);
+            setRandomSituation5(false);
+            setRandomSituation6(true);
+        }
+    }, [title]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // 处理编辑默认金额按钮点击事件的函数
     const handleEditDefaultAmountButtonPress = () => {
@@ -128,6 +342,24 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
             setselectedAmounts(Math.floor(Number(text)).toString());
         }
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -291,9 +523,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     };
 
 
-
-
-
+    // 添加按钮逻辑状态
     const [condition1, setCondition1] = useState(false);
     const [condition2, setCondition2] = useState(false);
 
@@ -312,6 +542,40 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 处理初始化状态函数
+    const handleCleanAllPress = () => {
+        setSelectedNumbers([]);
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+    }
 
 
     return (
@@ -370,7 +634,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
             </Modal>
             <View style={styles.addDataButtonContainer}>
 
-                <TouchableOpacity onPress={() => setSelectedNumbers([])} style={styles.iconButton}>
+                <TouchableOpacity onPress={handleCleanAllPress} style={styles.iconButton}>
                     <Icon name="delete" size={24} color="#900" />
                     <Text style={{ fontSize: 12, color: 'gray' }}>清空</Text>
                 </TouchableOpacity>
@@ -379,7 +643,22 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     <Text style={styles.count}>({selectedNumbers.length})</Text>
                     <Text style={styles.text}>数量</Text>
                 </View>
-                <TouchableOpacity onPress={handleClick} style={styles.iconButton}>
+
+                <TouchableOpacity style={styles.iconButton} onPress={() => {
+                    if (randomSituation1) {
+                        handleTmClick()
+                    } else if (randomSituation2) {
+                        handleTxClick()
+                    } else if (randomSituation3) {
+                        handleTwoLxClick()
+                    } else if (randomSituation4) {
+                        handleThreeLxClick()
+                    } else if (randomSituation5) {
+                        handleFourLxClick()
+                    } else {
+                        handleFiveLxClick()
+                    }
+                }}>
                     <Icon name="shake" size={24} color="#900" />
                     <Text style={{ fontSize: 12, color: 'gray' }}>随机</Text>
                 </TouchableOpacity>
@@ -392,13 +671,6 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     onChangeText={handleInputAmountsChange}
                     value={selectedAmounts}
                 />
-                {/* <TouchableOpacity style={styles.addDataButton} onPress={() => {
-                    handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
-                    handleAddLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue,);
-                    handleAddTxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue,);
-                }}>
-                    <Text style={styles.addDataButtonText}>添加</Text>
-                </TouchableOpacity> */}
                 <TouchableOpacity style={styles.addDataButton} onPress={() => {
                     if (condition1) {
                         handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
