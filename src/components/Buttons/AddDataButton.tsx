@@ -137,7 +137,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
     // 处理 数字商品数据 添加购物车逻辑 (调用第一个函数)
-    const handleAddNumberToCartPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
+    const handleAddTmToCartPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
         let data = selectedNumbers.map(number => [selectedAmounts, number]);
 
         if (selectedNumbers.length < 0) {
@@ -188,15 +188,39 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
-    // 处理 文本商品数据 添加购物车逻辑 (调用第二个函数)
-    const handleAddTextToCartPress = (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const handleAddTxToCartPress = (
         cartItems: CartItem[],
         setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
-        // selectedAmounts: string,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
     ) => {
         // 逻辑判断
-        if (selectedNumbers.length < 0) {
-            Alert.alert('提示', '请输入有效的值');
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
             return;
         } else if (selectedAmounts === '') {
             Alert.alert('提示', '请输入有效金额');
@@ -204,13 +228,13 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         }
 
         // 创建要添加到购物车的新项目数组
-        const newCartItems: CartItem[] = selectedButtonIndexes.map(index => {
+        const newCartItems: CartItem[] = selectedButtonIndexes.map((index, i) => {
             return {
                 id: index, // 使用按钮索引作为购物车项目的ID
-                name: `${title} - @${defaultButtonTextValue[index]}`, // 使用格式化后的数字
+                name: `${title} - @${defaultButtonTextValue[i]}`, // 使用格式化后的数字
                 quantity: 1, // 默认数量为1
                 price: parseFloat(selectedAmounts),
-                additionalText: generateAdditionalTextValue[index] || '', // 使用按钮的附加文本值，如果未定义则为空字符串
+                additionalText: generateAdditionalTextValue[i] || '', // 使用按钮的附加文本值，如果未定义则为空字符串
             };
         });
 
@@ -236,9 +260,6 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         // 导航到 'Shop' 页面
         navigation.navigate('Shop', { tabBarVisible: true });
     };
-
-
-
 
 
 
@@ -327,9 +348,14 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                 />
                 <TouchableOpacity style={styles.addDataButton} onPress={() => {
                     if (condition) {
-                        handleAddTextToCartPress(cartItems, setCartItems);
+                        handleAddTxToCartPress(
+                            cartItems,
+                            setCartItems,
+                            defaultButtonTextValue,
+                            generateAdditionalTextValue,
+                        );
                     } else {
-                        handleAddNumberToCartPress(selectedNumbers, cartItems, setCartItems);
+                        handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
                     }
                 }}>
                     <Text style={styles.addDataButtonText}>添加</Text>
