@@ -41,6 +41,367 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
+    // 处理编辑默认金额按钮点击事件的函数
+    const handleEditDefaultAmountButtonPress = () => {
+        // 设置正在编辑默认金额状态为true
+        setIsEditingDefaultAmount(true);
+    };
+
+    // 处理输入框聚焦事件的函数
+    const handleInputFocus = (index: number) => {
+        // 创建编辑后的默认金额副本
+        const newEditedAmounts = [...editedDefaultAmounts];
+        // 将当前索引的默认金额值设为空字符串
+        newEditedAmounts[index] = '';
+        // 更新编辑后的默认金额
+        setEditedDefaultAmounts(newEditedAmounts);
+    };
+
+    // 处理输入框失焦事件的函数
+    const handleInputBlur = (index: number) => {
+        // 获取编辑后的值
+        const editedValue = editedDefaultAmounts[index];
+        // 如果编辑后的值是空白的
+        if (editedValue.trim() === '') {
+            // 创建默认金额的副本
+            const newEditedAmounts = [...editedDefaultAmounts];
+            // 将默认金额的值还原到编辑后的值
+            newEditedAmounts[index] = defaultAmounts[index].toString();
+            // 更新编辑后的默认金额
+            setEditedDefaultAmounts(newEditedAmounts);
+        }
+    };
+
+    // 处理快捷金额按钮按下后添加到输入框
+    const handleQuickAmountButtonPress = (number: number) => {
+        setselectedAmounts(Math.floor(number).toString());
+    };
+
+    // 处理模态框保存按钮逻辑
+    const handleModleSaveButtonPress = () => {
+        const hasEmptyOrZero = editedDefaultAmounts.some((value) => value.trim() === '' || parseInt(value) === 0);
+
+        if (hasEmptyOrZero) {
+            Alert.alert('警告', '金额不能为空且不能为 0');
+            return;
+        }
+
+        const isUniqueKey = editedDefaultAmounts.every((value, index) => {
+            return editedDefaultAmounts.indexOf(value) === index;
+        });
+
+        if (!isUniqueKey) {
+            Alert.alert('警告', '金额重复，请重新输入');
+            return;
+        }
+
+        setDefaultAmounts(editedDefaultAmounts.map(parseFloat));
+        setIsEditingDefaultAmount(false);
+    };
+
+    // 处理输入框金额改变的逻辑
+    const handleInputAmountsChange = (text: string) => {
+        // 如果输入框的值为空或者删除所有数字后为空，则将输入框的值设置为空字符串
+        if (text === '' || (text === '0' && selectedAmounts === '0')) {
+            setselectedAmounts('');
+        } else {
+            // 否则，将输入框的值设置为输入值的整数部分
+            setselectedAmounts(Math.floor(Number(text)).toString());
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 处理 Tm 商品数据 添加购物车逻辑 (调用第一个函数)
+    const handleAddTmToCartPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
+        let data = selectedNumbers.map(number => [selectedAmounts, number]);
+
+        if (selectedNumbers.length < 0) {
+            Alert.alert('提示', '请输入有效的值');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
+        // 将所选项目添加到购物车中
+        const newCartItems: CartItem[] = [];
+        selectedNumbers.forEach(number => {
+            // 格式化数字为两位数
+            const formattedNumber = number < 10 ? `0${number}` : `${number}`;
+
+            return newCartItems.push({
+                id: number,
+                name: `${title} - @${formattedNumber}`, // 使用格式化后的数字
+                quantity: 1, // 默认数量为1
+                price: parseFloat(selectedAmounts),
+                additionalText: `${additionalText}`,
+            });
+        });
+
+        // 添加到数组中，并使用console.log()检查数组内容
+        console.log('New cart item:', newCartItems);
+        console.log('Additional Text:', additionalText);
+
+
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, ...newCartItems];
+        setCartItems(updatedCartItems);
+
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
+
+        console.log('您的金额:', selectedAmounts);
+        console.log('您选择的数值:', data);
+        console.log('Data to be added to cart:', cartItems);
+
+        setSelectedNumbers([]);
+        setselectedAmounts('');
+
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
+
+
+
+    // 处理 Tx 文本商品数据 添加购物车逻辑 (调用第二个函数)
+    const handleAddTxToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
+    ) => {
+        // 逻辑判断
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
+
+        // 创建要添加到购物车的新项目数组
+        const newCartItems: CartItem[] = selectedButtonIndexes.map((index, i) => {
+            return {
+                id: index, // 使用按钮索引作为购物车项目的ID
+                name: `${title} - @${defaultButtonTextValue[i]}`, // 使用格式化后的数字
+                quantity: 1, // 默认数量为1
+                price: parseFloat(selectedAmounts),
+                additionalText: generateAdditionalTextValue[i] || '', // 使用按钮的附加文本值，如果未定义则为空字符串
+            };
+        });
+
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart items:', newCartItems);
+
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, ...newCartItems];
+        setCartItems(updatedCartItems);
+
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
+
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItems);
+
+        // 清空金额输入框
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
+
+
+
+    // 处理 Lx 文本商品数据 添加购物车逻辑 (调用第三个函数)
+    const handleAddLxToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
+    ) => {
+        // 逻辑判断
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
+
+        // 创建要添加到购物车的新项目
+        const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
+        const newCartItem: CartItem = {
+            id: selectedIndex, // 使用按钮索引作为购物车项目的ID
+            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
+            quantity: 1, // 默认数量为1
+            price: parseFloat(selectedAmounts),
+            additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
+        };
+
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart item:', newCartItem);
+
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, newCartItem];
+        setCartItems(updatedCartItems);
+
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
+
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItem);
+
+        // 清空金额输入框
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
+
+
+    // 添加按钮逻辑状态
+    const [condition1, setCondition1] = useState(false);
+    const [condition2, setCondition2] = useState(false);
+
+    useEffect(() => {
+        if (selectedTab === 0) {
+            setCondition1(true);
+            setCondition2(false); // 确保只有一个条件为true
+        } else if (selectedTab === 1) {
+            setCondition1(false); // 确保只有一个条件为true
+            setCondition2(true);
+        } else {
+            setCondition1(false);
+            setCondition2(false);
+        }
+    }, [selectedTab]);
+
+
+
+
+
+
+
+
+
+
+    // 处理初始化状态函数
+    const handleCleanAllPress = () => {
+        setSelectedNumbers([]);
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+    }
+
+
+
+
+
+
+
+
+    // 计算组合数量的辅助函数
+    function factorial(n: number): number {
+        let result = 1;
+        for (let i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    // 计算组合数量
+    function calculateCombinations(n: number, k: number): number {
+        return factorial(n) / (factorial(k) * factorial(n - k));
+    }
+
+    const selectedButtonIndexesLength = selectedButtonIndexes.length;
+
+    const TwoLxCombinationsQuantity = calculateCombinations(selectedButtonIndexesLength, 2);
+    console.log("Number of TwoLx combinations:", TwoLxCombinationsQuantity);
+
+    const ThreeLxCombinationsQuantity = calculateCombinations(selectedButtonIndexesLength, 3);
+    console.log("Number of ThreeLx combinations:", ThreeLxCombinationsQuantity);
+
+    const FourLxCombinationsQuantity = calculateCombinations(selectedButtonIndexesLength, 4);
+    console.log("Number of FourLx combinations:", FourLxCombinationsQuantity);
+
+    const FiveLxCombinationsQuantity = calculateCombinations(selectedButtonIndexesLength, 5);
+    console.log("Number of FiveLx combinations:", FiveLxCombinationsQuantity);
+
+    const [renderSituation1, setRenderSituation1] = useState(false);
+    const [renderSituation2, setRenderSituation2] = useState(false);
+    const [renderSituation3, setRenderSituation3] = useState(false);
+    const [renderSituation4, setRenderSituation4] = useState(false);
+    const [renderSituation5, setRenderSituation5] = useState(false);
+    const [renderSituation6, setRenderSituation6] = useState(false);
+
+    useEffect(() => {
+        if (title === 'TM A' || title === 'TM B') {
+            setRenderSituation1(true);
+            setRenderSituation2(false); // 确保只有一个条件为true
+            setRenderSituation3(false);
+            setRenderSituation4(false);
+            setRenderSituation5(false);
+            setRenderSituation6(false);
+        } else if (title === 'TX') {
+            setRenderSituation1(false);
+            setRenderSituation2(true); // 确保只有一个条件为true
+            setRenderSituation3(false);
+            setRenderSituation4(false);
+            setRenderSituation5(false);
+            setRenderSituation6(false);
+        } else if (title === '2L') {
+            setRenderSituation1(false);
+            setRenderSituation2(false); // 确保只有一个条件为true
+            setRenderSituation3(true);
+            setRenderSituation4(false);
+            setRenderSituation5(false);
+            setRenderSituation6(false);
+        } else if (title === '3L') {
+            setRenderSituation1(false);
+            setRenderSituation2(false); // 确保只有一个条件为true
+            setRenderSituation3(false);
+            setRenderSituation4(true);
+            setRenderSituation5(false);
+            setRenderSituation6(false);
+        } else if (title === '4L') {
+            setRenderSituation1(false);
+            setRenderSituation2(false); // 确保只有一个条件为true
+            setRenderSituation3(false);
+            setRenderSituation4(false);
+            setRenderSituation5(true);
+            setRenderSituation6(false);
+        }
+        else if (title === '5L') {
+            setRenderSituation1(false);
+            setRenderSituation2(false); // 确保只有一个条件为true
+            setRenderSituation3(false);
+            setRenderSituation4(false);
+            setRenderSituation5(false);
+            setRenderSituation6(true);
+        }
+    }, [title]);
+
+
+
+
+
 
 
 
@@ -266,318 +627,6 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
-
-
-
-
-
-
-
-
-    // 处理编辑默认金额按钮点击事件的函数
-    const handleEditDefaultAmountButtonPress = () => {
-        // 设置正在编辑默认金额状态为true
-        setIsEditingDefaultAmount(true);
-    };
-
-    // 处理输入框聚焦事件的函数
-    const handleInputFocus = (index: number) => {
-        // 创建编辑后的默认金额副本
-        const newEditedAmounts = [...editedDefaultAmounts];
-        // 将当前索引的默认金额值设为空字符串
-        newEditedAmounts[index] = '';
-        // 更新编辑后的默认金额
-        setEditedDefaultAmounts(newEditedAmounts);
-    };
-
-    // 处理输入框失焦事件的函数
-    const handleInputBlur = (index: number) => {
-        // 获取编辑后的值
-        const editedValue = editedDefaultAmounts[index];
-        // 如果编辑后的值是空白的
-        if (editedValue.trim() === '') {
-            // 创建默认金额的副本
-            const newEditedAmounts = [...editedDefaultAmounts];
-            // 将默认金额的值还原到编辑后的值
-            newEditedAmounts[index] = defaultAmounts[index].toString();
-            // 更新编辑后的默认金额
-            setEditedDefaultAmounts(newEditedAmounts);
-        }
-    };
-
-    // 处理快捷金额按钮按下后添加到输入框
-    const handleQuickAmountButtonPress = (number: number) => {
-        setselectedAmounts(Math.floor(number).toString());
-    };
-
-    // 处理模态框保存按钮逻辑
-    const handleModleSaveButtonPress = () => {
-        const hasEmptyOrZero = editedDefaultAmounts.some((value) => value.trim() === '' || parseInt(value) === 0);
-
-        if (hasEmptyOrZero) {
-            Alert.alert('警告', '金额不能为空且不能为 0');
-            return;
-        }
-
-        const isUniqueKey = editedDefaultAmounts.every((value, index) => {
-            return editedDefaultAmounts.indexOf(value) === index;
-        });
-
-        if (!isUniqueKey) {
-            Alert.alert('警告', '金额重复，请重新输入');
-            return;
-        }
-
-        setDefaultAmounts(editedDefaultAmounts.map(parseFloat));
-        setIsEditingDefaultAmount(false);
-    };
-
-    // 处理输入框金额改变的逻辑
-    const handleInputAmountsChange = (text: string) => {
-        // 如果输入框的值为空或者删除所有数字后为空，则将输入框的值设置为空字符串
-        if (text === '' || (text === '0' && selectedAmounts === '0')) {
-            setselectedAmounts('');
-        } else {
-            // 否则，将输入框的值设置为输入值的整数部分
-            setselectedAmounts(Math.floor(Number(text)).toString());
-        }
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // 处理 Tm 商品数据 添加购物车逻辑 (调用第一个函数)
-    const handleAddTmToCartPress = (selectedNumbers: number[], cartItems: CartItem[], setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>) => {
-        let data = selectedNumbers.map(number => [selectedAmounts, number]);
-
-        if (selectedNumbers.length < 0) {
-            Alert.alert('提示', '请输入有效的值');
-            return;
-        } else if (selectedAmounts === '') {
-            Alert.alert('提示', '请输入有效金额');
-            return;
-        }
-        // 将所选项目添加到购物车中
-        const newCartItems: CartItem[] = [];
-        selectedNumbers.forEach(number => {
-            // 格式化数字为两位数
-            const formattedNumber = number < 10 ? `0${number}` : `${number}`;
-
-            return newCartItems.push({
-                id: number,
-                name: `${title} - @${formattedNumber}`, // 使用格式化后的数字
-                quantity: 1, // 默认数量为1
-                price: parseFloat(selectedAmounts),
-                additionalText: `${additionalText}`,
-            });
-        });
-
-        // 添加到数组中，并使用console.log()检查数组内容
-        console.log('New cart item:', newCartItems);
-        console.log('Additional Text:', additionalText);
-
-
-        // 合并新项目和当前项目，并设置新的购物车项目
-        const updatedCartItems = [...cartItems, ...newCartItems];
-        setCartItems(updatedCartItems);
-
-        // 将购物车项目存储到 AsyncStorage
-        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
-            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
-            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
-
-        console.log('您的金额:', selectedAmounts);
-        console.log('您选择的数值:', data);
-        console.log('Data to be added to cart:', cartItems);
-
-        setSelectedNumbers([]);
-        setselectedAmounts('');
-
-        navigation.navigate('Shop', { tabBarVisible: true });
-    };
-
-
-
-    // 处理 Tx 文本商品数据 添加购物车逻辑 (调用第二个函数)
-    const handleAddTxToCartPress = (
-        cartItems: CartItem[],
-        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
-        defaultButtonTextValue: string[],
-        generateAdditionalTextValue: string[],
-    ) => {
-        // 逻辑判断
-        if (selectedButtonIndexes.length === 0) {
-            Alert.alert('提示', '请选择有效的按钮');
-            return;
-        } else if (selectedAmounts === '') {
-            Alert.alert('提示', '请输入有效金额');
-            return;
-        }
-
-        // 创建要添加到购物车的新项目数组
-        const newCartItems: CartItem[] = selectedButtonIndexes.map((index, i) => {
-            return {
-                id: index, // 使用按钮索引作为购物车项目的ID
-                name: `${title} - @${defaultButtonTextValue[i]}`, // 使用格式化后的数字
-                quantity: 1, // 默认数量为1
-                price: parseFloat(selectedAmounts),
-                additionalText: generateAdditionalTextValue[i] || '', // 使用按钮的附加文本值，如果未定义则为空字符串
-            };
-        });
-
-        // 输出新的购物车项目，用于调试目的
-        console.log('New cart items:', newCartItems);
-
-        // 合并新项目和当前项目，并设置新的购物车项目
-        const updatedCartItems = [...cartItems, ...newCartItems];
-        setCartItems(updatedCartItems);
-
-        // 将购物车项目存储到 AsyncStorage
-        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
-            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
-            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
-
-        // 输出额外的调试信息
-        console.log('您的金额:', selectedAmounts);
-        console.log('Data to be added to cart:', newCartItems);
-
-        // 清空金额输入框
-        setselectedAmounts('');
-        setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
-    };
-
-
-
-    // 处理 Lx 文本商品数据 添加购物车逻辑 (调用第三个函数)
-    const handleAddLxToCartPress = (
-        cartItems: CartItem[],
-        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
-        defaultButtonTextValue: string[],
-        generateAdditionalTextValue: string[],
-    ) => {
-        // 逻辑判断
-        if (selectedButtonIndexes.length === 0) {
-            Alert.alert('提示', '请选择有效的按钮');
-            return;
-        } else if (selectedAmounts === '') {
-            Alert.alert('提示', '请输入有效金额');
-            return;
-        }
-
-        // 创建要添加到购物车的新项目
-        const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
-        const newCartItem: CartItem = {
-            id: selectedIndex, // 使用按钮索引作为购物车项目的ID
-            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
-            quantity: 1, // 默认数量为1
-            price: parseFloat(selectedAmounts),
-            additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
-        };
-
-        // 输出新的购物车项目，用于调试目的
-        console.log('New cart item:', newCartItem);
-
-        // 合并新项目和当前项目，并设置新的购物车项目
-        const updatedCartItems = [...cartItems, newCartItem];
-        setCartItems(updatedCartItems);
-
-        // 将购物车项目存储到 AsyncStorage
-        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
-            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
-            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
-
-        // 输出额外的调试信息
-        console.log('您的金额:', selectedAmounts);
-        console.log('Data to be added to cart:', newCartItem);
-
-        // 清空金额输入框
-        setselectedAmounts('');
-        setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
-    };
-
-
-    // 添加按钮逻辑状态
-    const [condition1, setCondition1] = useState(false);
-    const [condition2, setCondition2] = useState(false);
-
-    useEffect(() => {
-        if (selectedTab === 0) {
-            setCondition1(true);
-            setCondition2(false); // 确保只有一个条件为true
-        } else if (selectedTab === 1) {
-            setCondition1(false); // 确保只有一个条件为true
-            setCondition2(true);
-        } else {
-            setCondition1(false);
-            setCondition2(false);
-        }
-    }, [selectedTab]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // 处理初始化状态函数
-    const handleCleanAllPress = () => {
-        setSelectedNumbers([]);
-        setselectedAmounts('');
-        setSelectedButtonIndexes([]);
-    }
-
-
     return (
         <View style={styles.container}>
             <View style={styles.amountButtonContainer}>
@@ -640,9 +689,59 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                 </TouchableOpacity>
 
                 <View style={styles.countContainer}>
-                    <Text style={styles.count}>({selectedNumbers.length})</Text>
-                    <Text style={styles.text}>数量</Text>
+                    {/* <Text style={styles.count}>({selectedNumbers.length})</Text> */}
+                    {
+                        renderSituation1 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({selectedNumbers.length})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        renderSituation2 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({selectedButtonIndexes.length})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        renderSituation3 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({TwoLxCombinationsQuantity})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        renderSituation4 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({ThreeLxCombinationsQuantity})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        renderSituation5 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({FourLxCombinationsQuantity})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        renderSituation6 && (
+                            <React.Fragment>
+                                <Text style={styles.count}>({FiveLxCombinationsQuantity})</Text>
+                                <Text style={styles.text}>数量</Text>
+                            </React.Fragment>
+                        )
+                    }
                 </View>
+
+
+
 
                 <TouchableOpacity style={styles.iconButton} onPress={() => {
                     if (randomSituation1) {
