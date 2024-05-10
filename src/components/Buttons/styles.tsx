@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { transformer } from '../../../metro.config';
 
 const styles = StyleSheet.create({
     container: {
