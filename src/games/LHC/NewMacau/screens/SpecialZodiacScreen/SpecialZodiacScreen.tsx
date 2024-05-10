@@ -46,8 +46,8 @@ const TwoSpecialZodiacScreen = () => {
             {/* 使用 ButtonGroup 组件 */}
             <ButtonGroup
                 itemsPerRow={2}
-                itemSize={100}
-                height={50}
+                itemSize={120}
+                height={60}
                 containerStyle={styles.buttonGroupContainer}
                 buttonStyle={styles.button}
                 selectedButtonStyle={styles.selectedButton}
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
     },
     buttonGroupContainer: {
-        marginTop: 10,
+        // backgroundColor: '#000',
     },
     button: {
         justifyContent: 'center',

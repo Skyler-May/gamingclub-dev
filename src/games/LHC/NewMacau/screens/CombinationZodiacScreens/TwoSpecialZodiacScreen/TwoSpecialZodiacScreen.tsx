@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
     },
     buttonGroupContainer: {
-        marginTop: 10,
+        // marginTop: 10,
     },
     button: {
         justifyContent: 'center',
