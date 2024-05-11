@@ -35,8 +35,8 @@ const TwoSpecialZodiacScreen = () => {
             {/* 使用 ButtonGroup 组件 */}
             <ButtonGroup
                 itemsPerRow={2}
-                itemSize={100}
-                height={50}
+                itemSize={120}
+                height={60}
                 containerStyle={styles.buttonGroupContainer}
                 buttonStyle={styles.button}
                 selectedButtonStyle={styles.selectedButton}
