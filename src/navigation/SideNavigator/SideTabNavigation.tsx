@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useNumberContext } from '../Contexts/NumberContext';
+import { useNumberContext } from '../../components/contexts/NumberContext';
 
 interface Tab {
     label: string;

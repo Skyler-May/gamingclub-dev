@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { useNumberContext } from '../Contexts/NumberContext';
+import { useNumberContext } from '../../components/contexts/NumberContext';
 
 interface PagesSwitchProps {
     pages: {
@@ -10,7 +10,7 @@ interface PagesSwitchProps {
     }[];
 }
 
-const PagesSwitch: React.FC<PagesSwitchProps> = ({ pages }) => {
+const PagesSwitchNavigation: React.FC<PagesSwitchProps> = ({ pages }) => {
     const [currentPage, setCurrentPage] = useState<string>(pages[0].key);
     const scrollViewRef = useRef<ScrollView>(null);
     const { setTitle, setSelectedNumbers, setSelectedButtonIndexes } = useNumberContext(); // 获取setTitle方法
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PagesSwitch;
+export default PagesSwitchNavigation;

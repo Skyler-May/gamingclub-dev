@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import NumberSelector from '../../../../../components/Selector/NumberSelector/NumberSelector';
-import { useNumberContext } from '../../../../../components/Contexts/NumberContext';
+import { useNumberContext } from "../../../../../components/contexts/NumberContext";
 
 const SpecialNumberScreenA = () => {
     const handleNumberSelectParent = (number: string | number) => {

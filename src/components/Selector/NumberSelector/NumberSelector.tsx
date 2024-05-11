@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet, Dimensions, TextStyle, ViewStyle, Button } from 'react-native';
-import { useNumberContext } from '../../Contexts/NumberContext';
+import { useNumberContext } from '../../contexts/NumberContext';
 import { Platform, ToastAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
 

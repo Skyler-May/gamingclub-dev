@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import GetLotteryResults from '../../games/LHC/NewMacau/components/dataSource/GetLotteryResults';
+import GetLotteryResults from '../../services/GetLotteryResults';
 import CountdownTimer from '../../components/Timer/CountdownTimer';
 
 

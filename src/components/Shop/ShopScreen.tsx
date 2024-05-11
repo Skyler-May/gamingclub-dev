@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import ShoppingCart from './Carts/ShoppingCart';
 import { useNavigation } from '@react-navigation/core';
 import CountdownTimer from '../Timer/CountdownTimer';
-import GetLotteryResults from '../../games/LHC/NewMacau/components/dataSource/GetLotteryResults';
+import GetLotteryResults from '../../services/GetLotteryResults';
 
 const ShopScreen: React.FC = () => {
     const navigation = useNavigation();

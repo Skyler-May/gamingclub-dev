@@ -17,7 +17,7 @@ import ProfileScreen from './src/screens/Profile/ProfileScreen';
 import GamesLobbyScreen from './src/screens/Game/GamesLobbyScreen';
 
 import TestScreen from './src/screens/Test/TestScreen';
-import { NumberProvider } from './src/components/Contexts/NumberContext';
+import { NumberProvider } from './src/components/contexts/NumberContext';
 import ShopScreen from './src/components/Shop/ShopScreen';
 import NewMScreen from './src/games/LHC/NewMacau/screens/NewMScreen';
 import { useEffect, useState } from 'react';

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AddDataButton from "../../../../components/Buttons/AddDataButton";
-import SideTabNavigation from "../../../../components/SideNavigator/SideTabNavigation";
-import { useNumberContext } from "../../../../components/Contexts/NumberContext";
+import SideTabNavigation from "../../../../navigation/SideNavigator/SideTabNavigation";
+import { useNumberContext } from "../../../../components/contexts/NumberContext";
 
-import PagesSwitch from "../../../../components/Switch/PagesSwitch";
+import PagesSwitch from "../../../../navigation/PagesSwitchNavigation/PagesSwitchNavigation";
 import SpecialNumberScreenA from "./specialNumberScreens/SpecialNumberScreenA";
 import SpecialNumberScreenB from "./specialNumberScreens/SpecialNumberScreenB";
-import GetLotteryResults from "../components/dataSource/GetLotteryResults";
+import GetLotteryResults from "../../../../services/GetLotteryResults";
 import CountdownTimer from "../../../../components/Timer/CountdownTimer";
 import SpecialZodiacScreen from "./SpecialZodiacScreen/SpecialZodiacScreen";
 import TwoSpecialZodiacScreen from "./CombinationZodiacScreens/TwoSpecialZodiacScreen/TwoSpecialZodiacScreen";

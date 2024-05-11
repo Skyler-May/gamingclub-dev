@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/core';
 import { CartItem } from '../Shop/Carts/ShoppingCart';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNumberContext } from '../Contexts/NumberContext';
+import { useNumberContext } from '../contexts/NumberContext';
 import { RootStackParamList } from '../../../types';
 
 interface AddDataButtonProps {
