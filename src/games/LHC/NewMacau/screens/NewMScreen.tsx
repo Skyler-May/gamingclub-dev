@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import AddDataButton from "../../../../components/Buttons/AddDataButton";
+import AddDataButton from "../../../../components/Buttons/AddDataToCartsButton";
 import SideTabNavigation from "../../../../navigation/SideNavigator/SideTabNavigation";
 import { useNumberContext } from "../../../../components/contexts/NumberContext";
 

@@ -8,11 +8,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNumberContext } from '../contexts/NumberContext';
 import { RootStackParamList } from '../../../types';
 
-interface AddDataButtonProps {
+interface AddDataToCartsProps {
 
 }
 
-const AddDataButton: React.FC<AddDataButtonProps> = () => {
+const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
     const { selectedNumbers,
         setSelectedNumbers,
         title,
@@ -115,6 +115,12 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
 
+    // 处理初始化状态函数
+    const handleCleanAllPress = () => {
+        setSelectedNumbers([]);
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+    }
 
 
 
@@ -172,8 +178,6 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         navigation.navigate('Shop', { tabBarVisible: true });
     };
 
-
-
     // 处理 Tx 文本商品数据 添加购物车逻辑 (调用第二个函数)
     const handleAddTxToCartPress = (
         cartItems: CartItem[],
@@ -224,10 +228,8 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         navigation.navigate('Shop', { tabBarVisible: true });
     };
 
-
-
-    // 处理 Lx 文本商品数据 添加购物车逻辑 (调用第三个函数)
-    const handleAddLxToCartPress = (
+    // 处理 TwoLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
+    const handleAddTwoLxToCartPress = (
         cartItems: CartItem[],
         setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
         defaultButtonTextValue: string[],
@@ -247,7 +249,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         const newCartItem: CartItem = {
             id: selectedIndex, // 使用按钮索引作为购物车项目的ID
             name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
-            quantity: 1, // 默认数量为1
+            quantity: TwoLxCombinationsQuantity, // 默认数量为1
             price: parseFloat(selectedAmounts),
             additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
         };
@@ -275,46 +277,152 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         navigation.navigate('Shop', { tabBarVisible: true });
     };
 
-
-    // 添加按钮逻辑状态
-    const [condition1, setCondition1] = useState(false);
-    const [condition2, setCondition2] = useState(false);
-
-    useEffect(() => {
-        if (selectedTab === 0) {
-            setCondition1(true);
-            setCondition2(false); // 确保只有一个条件为true
-        } else if (selectedTab === 1) {
-            setCondition1(false); // 确保只有一个条件为true
-            setCondition2(true);
-        } else {
-            setCondition1(false);
-            setCondition2(false);
+    // 处理 ThreeLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
+    const handleAddThreeLxToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
+    ) => {
+        // 逻辑判断
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
         }
-    }, [selectedTab]);
 
+        // 创建要添加到购物车的新项目
+        const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
+        const newCartItem: CartItem = {
+            id: selectedIndex, // 使用按钮索引作为购物车项目的ID
+            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
+            quantity: ThreeLxCombinationsQuantity, // 默认数量为1
+            price: parseFloat(selectedAmounts),
+            additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
+        };
 
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart item:', newCartItem);
 
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, newCartItem];
+        setCartItems(updatedCartItems);
 
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
 
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItem);
 
-
-
-
-
-    // 处理初始化状态函数
-    const handleCleanAllPress = () => {
-        setSelectedNumbers([]);
+        // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-    }
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
 
+    // 处理 FourLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
+    const handleAddFourLxToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
+    ) => {
+        // 逻辑判断
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
 
+        // 创建要添加到购物车的新项目
+        const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
+        const newCartItem: CartItem = {
+            id: selectedIndex, // 使用按钮索引作为购物车项目的ID
+            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
+            quantity: FourLxCombinationsQuantity, // 默认数量为1
+            price: parseFloat(selectedAmounts),
+            additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
+        };
 
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart item:', newCartItem);
 
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, newCartItem];
+        setCartItems(updatedCartItems);
 
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
 
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItem);
 
+        // 清空金额输入框
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
+
+    // 处理 FiveLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
+    const handleAddFiveLxToCartPress = (
+        cartItems: CartItem[],
+        setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>,
+        defaultButtonTextValue: string[],
+        generateAdditionalTextValue: string[],
+    ) => {
+        // 逻辑判断
+        if (selectedButtonIndexes.length === 0) {
+            Alert.alert('提示', '请选择有效的按钮');
+            return;
+        } else if (selectedAmounts === '') {
+            Alert.alert('提示', '请输入有效金额');
+            return;
+        }
+
+        // 创建要添加到购物车的新项目
+        const selectedIndex = selectedButtonIndexes[0]; // 取第一个选中的按钮索引
+        const newCartItem: CartItem = {
+            id: selectedIndex, // 使用按钮索引作为购物车项目的ID
+            name: `${title} - [${defaultButtonTextValue.join(',')}]`, // 将所有选中的按钮值合并为一个字符串
+            quantity: FiveLxCombinationsQuantity, // 默认数量为1
+            price: parseFloat(selectedAmounts),
+            additionalText: generateAdditionalTextValue[0] || '0', // 将所有附加文本值合并为一个字符串，如果未定义则为 '0'
+        };
+
+        // 输出新的购物车项目，用于调试目的
+        console.log('New cart item:', newCartItem);
+
+        // 合并新项目和当前项目，并设置新的购物车项目
+        const updatedCartItems = [...cartItems, newCartItem];
+        setCartItems(updatedCartItems);
+
+        // 将购物车项目存储到 AsyncStorage
+        AsyncStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+            .then(() => console.log('Cart items successfully stored in AsyncStorage'))
+            .catch(error => console.error('Error storing cart items in AsyncStorage:', error));
+
+        // 输出额外的调试信息
+        console.log('您的金额:', selectedAmounts);
+        console.log('Data to be added to cart:', newCartItem);
+
+        // 清空金额输入框
+        setselectedAmounts('');
+        setSelectedButtonIndexes([]);
+        // 导航到 'Shop' 页面
+        navigation.navigate('Shop', { tabBarVisible: true });
+    };
 
     // 计算组合数量的辅助函数
     function factorial(n: number): number {
@@ -344,66 +452,12 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     const FiveLxCombinationsQuantity = calculateCombinations(selectedButtonIndexesLength, 5);
     console.log("Number of FiveLx combinations:", FiveLxCombinationsQuantity);
 
-    const [renderSituation1, setRenderSituation1] = useState(false);
-    const [renderSituation2, setRenderSituation2] = useState(false);
-    const [renderSituation3, setRenderSituation3] = useState(false);
-    const [renderSituation4, setRenderSituation4] = useState(false);
-    const [renderSituation5, setRenderSituation5] = useState(false);
-    const [renderSituation6, setRenderSituation6] = useState(false);
-
-    useEffect(() => {
-        if (title === 'TM A' || title === 'TM B') {
-            setRenderSituation1(true);
-            setRenderSituation2(false); // 确保只有一个条件为true
-            setRenderSituation3(false);
-            setRenderSituation4(false);
-            setRenderSituation5(false);
-            setRenderSituation6(false);
-        } else if (title === 'TX') {
-            setRenderSituation1(false);
-            setRenderSituation2(true); // 确保只有一个条件为true
-            setRenderSituation3(false);
-            setRenderSituation4(false);
-            setRenderSituation5(false);
-            setRenderSituation6(false);
-        } else if (title === '2L') {
-            setRenderSituation1(false);
-            setRenderSituation2(false); // 确保只有一个条件为true
-            setRenderSituation3(true);
-            setRenderSituation4(false);
-            setRenderSituation5(false);
-            setRenderSituation6(false);
-        } else if (title === '3L') {
-            setRenderSituation1(false);
-            setRenderSituation2(false); // 确保只有一个条件为true
-            setRenderSituation3(false);
-            setRenderSituation4(true);
-            setRenderSituation5(false);
-            setRenderSituation6(false);
-        } else if (title === '4L') {
-            setRenderSituation1(false);
-            setRenderSituation2(false); // 确保只有一个条件为true
-            setRenderSituation3(false);
-            setRenderSituation4(false);
-            setRenderSituation5(true);
-            setRenderSituation6(false);
-        }
-        else if (title === '5L') {
-            setRenderSituation1(false);
-            setRenderSituation2(false); // 确保只有一个条件为true
-            setRenderSituation3(false);
-            setRenderSituation4(false);
-            setRenderSituation5(false);
-            setRenderSituation6(true);
-        }
-    }, [title]);
-
-
-
-
-
-
-
+    const [quantityRenderAndRandomConditionAndClickSituation1, setquantityRenderAndRandomConditionAndClickSituation1] = useState(false);
+    const [quantityRenderAndRandomConditionAndClickSituation2, setquantityRenderAndRandomConditionAndClickSituation2] = useState(false);
+    const [quantityRenderAndRandomConditionAndClickSituation3, setquantityRenderAndRandomConditionAndClickSituation3] = useState(false);
+    const [quantityRenderAndRandomConditionAndClickSituation4, setquantityRenderAndRandomConditionAndClickSituation4] = useState(false);
+    const [quantityRenderAndRandomConditionAndClickSituation5, setquantityRenderAndRandomConditionAndClickSituation5] = useState(false);
+    const [quantityRenderAndRandomConditionAndClickSituation6, setquantityRenderAndRandomConditionAndClickSituation6] = useState(false);
 
 
 
@@ -564,58 +618,58 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
         setSelectedButtonIndexes(selectedButtonIndexes); // 更新上下文中的选定数字
     };
 
-    // 添加按钮逻辑状态
-    const [randomSituation1, setRandomSituation1] = useState(false);
-    const [randomSituation2, setRandomSituation2] = useState(false);
-    const [randomSituation3, setRandomSituation3] = useState(false);
-    const [randomSituation4, setRandomSituation4] = useState(false);
-    const [randomSituation5, setRandomSituation5] = useState(false);
-    const [randomSituation6, setRandomSituation6] = useState(false);
+
+
+
+
+
+
+
 
     useEffect(() => {
         if (title === 'TM A' || title === 'TM B') {
-            setRandomSituation1(true);
-            setRandomSituation2(false); // 确保只有一个条件为true
-            setRandomSituation3(false);
-            setRandomSituation4(false);
-            setRandomSituation5(false);
-            setRandomSituation6(false);
+            setquantityRenderAndRandomConditionAndClickSituation1(true);
+            setquantityRenderAndRandomConditionAndClickSituation2(false); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(false);
+            setquantityRenderAndRandomConditionAndClickSituation4(false);
+            setquantityRenderAndRandomConditionAndClickSituation5(false);
+            setquantityRenderAndRandomConditionAndClickSituation6(false);
         } else if (title === 'TX') {
-            setRandomSituation1(false);
-            setRandomSituation2(true); // 确保只有一个条件为true
-            setRandomSituation3(false);
-            setRandomSituation4(false);
-            setRandomSituation5(false);
-            setRandomSituation6(false);
+            setquantityRenderAndRandomConditionAndClickSituation1(false);
+            setquantityRenderAndRandomConditionAndClickSituation2(true); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(false);
+            setquantityRenderAndRandomConditionAndClickSituation4(false);
+            setquantityRenderAndRandomConditionAndClickSituation5(false);
+            setquantityRenderAndRandomConditionAndClickSituation6(false);
         } else if (title === '2L') {
-            setRandomSituation1(false);
-            setRandomSituation2(false); // 确保只有一个条件为true
-            setRandomSituation3(true);
-            setRandomSituation4(false);
-            setRandomSituation5(false);
-            setRandomSituation6(false);
+            setquantityRenderAndRandomConditionAndClickSituation1(false);
+            setquantityRenderAndRandomConditionAndClickSituation2(false); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(true);
+            setquantityRenderAndRandomConditionAndClickSituation4(false);
+            setquantityRenderAndRandomConditionAndClickSituation5(false);
+            setquantityRenderAndRandomConditionAndClickSituation6(false);
         } else if (title === '3L') {
-            setRandomSituation1(false);
-            setRandomSituation2(false); // 确保只有一个条件为true
-            setRandomSituation3(false);
-            setRandomSituation4(true);
-            setRandomSituation5(false);
-            setRandomSituation6(false);
+            setquantityRenderAndRandomConditionAndClickSituation1(false);
+            setquantityRenderAndRandomConditionAndClickSituation2(false); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(false);
+            setquantityRenderAndRandomConditionAndClickSituation4(true);
+            setquantityRenderAndRandomConditionAndClickSituation5(false);
+            setquantityRenderAndRandomConditionAndClickSituation6(false);
         } else if (title === '4L') {
-            setRandomSituation1(false);
-            setRandomSituation2(false); // 确保只有一个条件为true
-            setRandomSituation3(false);
-            setRandomSituation4(false);
-            setRandomSituation5(true);
-            setRandomSituation6(false);
+            setquantityRenderAndRandomConditionAndClickSituation1(false);
+            setquantityRenderAndRandomConditionAndClickSituation2(false); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(false);
+            setquantityRenderAndRandomConditionAndClickSituation4(false);
+            setquantityRenderAndRandomConditionAndClickSituation5(true);
+            setquantityRenderAndRandomConditionAndClickSituation6(false);
         }
         else if (title === '5L') {
-            setRandomSituation1(false);
-            setRandomSituation2(false); // 确保只有一个条件为true
-            setRandomSituation3(false);
-            setRandomSituation4(false);
-            setRandomSituation5(false);
-            setRandomSituation6(true);
+            setquantityRenderAndRandomConditionAndClickSituation1(false);
+            setquantityRenderAndRandomConditionAndClickSituation2(false); // 确保只有一个条件为true
+            setquantityRenderAndRandomConditionAndClickSituation3(false);
+            setquantityRenderAndRandomConditionAndClickSituation4(false);
+            setquantityRenderAndRandomConditionAndClickSituation5(false);
+            setquantityRenderAndRandomConditionAndClickSituation6(true);
         }
     }, [title]);
 
@@ -691,7 +745,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                 <View style={styles.countContainer}>
                     {/* <Text style={styles.count}>({selectedNumbers.length})</Text> */}
                     {
-                        renderSituation1 && (
+                        quantityRenderAndRandomConditionAndClickSituation1 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({selectedNumbers.length})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -699,7 +753,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                         )
                     }
                     {
-                        renderSituation2 && (
+                        quantityRenderAndRandomConditionAndClickSituation2 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({selectedButtonIndexes.length})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -707,7 +761,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                         )
                     }
                     {
-                        renderSituation3 && (
+                        quantityRenderAndRandomConditionAndClickSituation3 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({TwoLxCombinationsQuantity})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -715,7 +769,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                         )
                     }
                     {
-                        renderSituation4 && (
+                        quantityRenderAndRandomConditionAndClickSituation4 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({ThreeLxCombinationsQuantity})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -723,7 +777,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                         )
                     }
                     {
-                        renderSituation5 && (
+                        quantityRenderAndRandomConditionAndClickSituation5 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({FourLxCombinationsQuantity})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -731,7 +785,7 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                         )
                     }
                     {
-                        renderSituation6 && (
+                        quantityRenderAndRandomConditionAndClickSituation6 && (
                             <React.Fragment>
                                 <Text style={styles.count}>({FiveLxCombinationsQuantity})</Text>
                                 <Text style={styles.text}>数量</Text>
@@ -744,15 +798,15 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
 
 
                 <TouchableOpacity style={styles.iconButton} onPress={() => {
-                    if (randomSituation1) {
+                    if (quantityRenderAndRandomConditionAndClickSituation1) {
                         handleTmClick()
-                    } else if (randomSituation2) {
+                    } else if (quantityRenderAndRandomConditionAndClickSituation2) {
                         handleTxClick()
-                    } else if (randomSituation3) {
+                    } else if (quantityRenderAndRandomConditionAndClickSituation3) {
                         handleTwoLxClick()
-                    } else if (randomSituation4) {
+                    } else if (quantityRenderAndRandomConditionAndClickSituation4) {
                         handleThreeLxClick()
-                    } else if (randomSituation5) {
+                    } else if (quantityRenderAndRandomConditionAndClickSituation5) {
                         handleFourLxClick()
                     } else {
                         handleFiveLxClick()
@@ -771,12 +825,18 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
                     value={selectedAmounts}
                 />
                 <TouchableOpacity style={styles.addDataButton} onPress={() => {
-                    if (condition1) {
+                    if (quantityRenderAndRandomConditionAndClickSituation1) {
                         handleAddTmToCartPress(selectedNumbers, cartItems, setCartItems);
-                    } else if (condition2) {
+                    } else if (quantityRenderAndRandomConditionAndClickSituation2) {
                         handleAddTxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
-                    } else {
-                        handleAddLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
+                    } else if (quantityRenderAndRandomConditionAndClickSituation3) {
+                        handleAddTwoLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
+                    } else if (quantityRenderAndRandomConditionAndClickSituation4) {
+                        handleAddThreeLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
+                    } else if (quantityRenderAndRandomConditionAndClickSituation5) {
+                        handleAddFourLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
+                    } else if (quantityRenderAndRandomConditionAndClickSituation6) {
+                        handleAddFiveLxToCartPress(cartItems, setCartItems, defaultButtonTextValue, generateAdditionalTextValue);
                     }
                 }}>
                     <Text style={styles.addDataButtonText}>添加</Text>
@@ -787,4 +847,4 @@ const AddDataButton: React.FC<AddDataButtonProps> = () => {
     );
 };
 
-export default AddDataButton;
+export default AddDataToCarts;
