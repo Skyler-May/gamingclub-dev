@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginVertical: 5,
         borderRadius: 5,
+        height: 40,
         color: 'orangered',
     },
     modalSaveButton: {
