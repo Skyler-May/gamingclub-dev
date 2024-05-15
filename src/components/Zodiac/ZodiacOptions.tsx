@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import useLunarDate from '../Timer/LunarDate';
+import useLunarDate from '../timer/LunarDate';
 import useChineseZodiacAges from './GetChineseZodiacAges';
 import Countdown from '../Controller/ButtonLockController';
 import { useNumberContext } from '../Contexts/NumberContext';

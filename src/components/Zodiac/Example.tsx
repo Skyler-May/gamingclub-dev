@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import useChineseZodiacAges from '../../components/Zodiac/GetChineseZodiacAges';
+import useChineseZodiacAges from './GetChineseZodiacAges';
 
 
 const TestScreen: React.FC = () => {

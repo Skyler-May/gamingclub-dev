@@ -1,11 +1,10 @@
 // cartUtils.ts
-
 import { Alert } from 'react-native';
 import { CartItem } from '../Carts/ShoppingCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNumberContext } from '../../Contexts/NumberContext';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../types';
+import { useNumberContext } from '../../../games/lhc/newam/contexts/NumberContext';
 
 const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 

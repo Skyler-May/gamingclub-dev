@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { View, Text, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
-import { CartItem } from '../Shop/Carts/ShoppingCart';
+import { useNumberContext } from '../../games/lhc/newam/contexts/NumberContext';
+import { CartItem } from '../shop/Carts/shoppingCart';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNumberContext } from '../contexts/NumberContext';
 import { RootStackParamList } from '../../../types';
 
 interface AddDataToCartsProps {
@@ -175,7 +175,7 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         setSelectedNumbers([]);
         setselectedAmounts('');
 
-        navigation.navigate('Shop', { tabBarVisible: true });
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 处理 Tx 文本商品数据 添加购物车逻辑 (调用第二个函数)
@@ -224,8 +224,8 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
+        // 导航到 'ShopScreen' 页面
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 处理 TwoLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
@@ -273,8 +273,8 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
+        // 导航到 'ShopScreen' 页面
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 处理 ThreeLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
@@ -322,8 +322,8 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
+        // 导航到 'ShopScreen' 页面
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 处理 FourLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
@@ -371,8 +371,8 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
+        // 导航到 'ShopScreen' 页面
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 处理 FiveLx 文本商品数据 添加购物车逻辑 (调用第三个函数)
@@ -420,8 +420,8 @@ const AddDataToCarts: React.FC<AddDataToCartsProps> = () => {
         // 清空金额输入框
         setselectedAmounts('');
         setSelectedButtonIndexes([]);
-        // 导航到 'Shop' 页面
-        navigation.navigate('Shop', { tabBarVisible: true });
+        // 导航到 'ShopScreen' 页面
+        navigation.navigate('ShopScreen', { tabBarVisible: true });
     };
 
     // 计算组合数量的辅助函数

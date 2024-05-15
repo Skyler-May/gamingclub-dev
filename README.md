@@ -77,3 +77,24 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+# development environment
+  
+> Node:v20.13.1
+>  
+> java version "17.0.11" 2024-04-16 LTS
+> Java(TM) SE Runtime Environment (build 17.0.11+7-LTS-207)
+> Java HotSpot(TM) 64-Bit Server VM (build 17.0.11+7-LTS-207, mixed mode, sharing)
+>  
+> javac 17.0.11
+>  
+> Android Studio Jellyfish | 2023.3.1
+> Build #AI-233.14808.21.2331.11709847, built on April 13, 2024
+> Runtime version: 17.0.10+0--11572160 amd64
+> VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
+> Windows 11.0
+> GC: G1 Young Generation, G1 Old Generation
+> Memory: 2048M
+> Cores: 12
+> Registry:
+>   ide.experimental.ui=true

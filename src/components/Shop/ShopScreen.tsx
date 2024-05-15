@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import ShoppingCart from './Carts/ShoppingCart';
 import { useNavigation } from '@react-navigation/core';
-import CountdownTimer from '../Timer/CountdownTimer';
-import GetLotteryResults from '../../services/GetLotteryResults';
+import CountdownTimer from '../timer/CountdownTimer';
+import GetLotteryResults from '../services/GetLotteryResults';
 
 const ShopScreen: React.FC = () => {
     const navigation = useNavigation();
-
     // useEffect(() => {
     //         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
     //             // 阻止页面跳转
