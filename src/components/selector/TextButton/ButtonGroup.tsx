@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, TouchableOpacity, Text, StyleProp, ViewStyle, TextStyle, ScrollView } from 'react-native';
 import { Platform, ToastAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useNumberContext } from '../../../games/lhc/newam/contexts/NumberContext';
+import { useNumberContext } from '../../contexts/NumberContext';
 
 interface ButtonGroupProps {
     itemsPerRow: number;

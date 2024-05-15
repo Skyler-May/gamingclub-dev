@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { useNumberContext } from '../../../games/lhc/newam/contexts/NumberContext';
+import { useNumberContext } from '../../contexts/NumberContext';
 
 interface PagesSwitchProps {
     pages: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ButtonGroup from '../../../../../components/selector/TextButton/ButtonGroup';
-import { useNumberContext } from '../../contexts/NumberContext';
+import { useNumberContext } from '../../../../../components/contexts/NumberContext';
 
 const TwoSpecialZodiacScreen = () => {
     const defaultButtonTextValue: string[] = [
@@ -60,7 +60,7 @@ const TwoSpecialZodiacScreen = () => {
                 minSelectedCount={1} // 设置所需的最小选定按钮数量
                 onShowAddDataButtonChange={handleShowAddButtonChange} // 传递处理 showAddDataButton 的回调函数
                 showAddDataButton={showAddDataButton}
-                maxSelectedButtonCount={12}
+                maxSelectedButtonCount={10}
             />
         </View>
     );

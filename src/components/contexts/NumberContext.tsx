@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { CartItem } from '../../../../components/shop/Carts/shoppingCart';
+import { CartItem } from '../shop/Carts/shoppingCart';
 
 // 定义上下文
 interface NumberContextType {

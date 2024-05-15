@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { View, Text, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
-import { useNumberContext } from '../../games/lhc/newam/contexts/NumberContext';
+import { useNumberContext } from '../contexts/NumberContext';
 import { CartItem } from '../shop/Carts/shoppingCart';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';

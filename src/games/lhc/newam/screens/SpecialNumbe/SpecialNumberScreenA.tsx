@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
-import { useNumberContext } from '../../contexts/NumberContext';
+import { useNumberContext } from '../../../../../components/contexts/NumberContext';
 import NumberSelector from '../../../../../components/selector/NumberButton/NumberSelector';
 
 const SpecialNumberScreenA = () => {

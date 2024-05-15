@@ -1,19 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import PersonalCenter from '../components/user/PersonalCenter';
 
 const ProfileScreen = () => {
     return (
         <View style={styles.container}>
-            <Image
-                source={{ uri: 'https://via.placeholder.com/150' }}
-                style={styles.avatar}
-            />
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.email}>john.doe@example.com</Text>
-            <Text style={styles.bio}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sed finibus tortor ac odio consequat, quis ullamcorper libero vehicula.
-            </Text>
+            <PersonalCenter user={{ name: 'John Doe', email: 'john@example.com', avatar: 'https://file.moyublog.com/d/file/2021-02-21/751d49d91fe63a565dff18b3b97ca7c8.jpg' }} />
         </View>
     );
 };
@@ -21,30 +13,17 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
-        backgroundColor: '#ffffff',
+        alignItems: 'center',
     },
-    avatar: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        marginBottom: 20,
-    },
-    name: {
+    title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    email: {
+    subtitle: {
         fontSize: 18,
-        marginBottom: 10,
-    },
-    bio: {
-        fontSize: 16,
-        textAlign: 'center',
-        lineHeight: 24,
+        color: '#666666',
     },
 });
 

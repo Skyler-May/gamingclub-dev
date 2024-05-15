@@ -7,7 +7,7 @@ import TwoSpecialZodiacScreen from "./CombinationZodiac/TwoSpecialZodiacScreen";
 import ThreeSpecialZodiacScreen from "./CombinationZodiac/ThreeSpecialZodiacScreen";
 import FourSpecialZodiacScreen from "./CombinationZodiac/FourSpecialZodiacScreen";
 import FiveSpecialZodiacScreen from "./CombinationZodiac/FiveSpecialZodiacScreen";
-import { NumberProvider, useNumberContext } from "../contexts/NumberContext";
+import { NumberProvider, useNumberContext } from "../../../../components/contexts/NumberContext";
 import PagesSwitchNavigation from "../../../../components/navigation/PagesSwitch/PagesSwitchNavigation";
 import GetLotteryResults from "../../../../components/services/GetLotteryResults";
 import CountdownTimer from "../../../../components/timer/CountdownTimer";

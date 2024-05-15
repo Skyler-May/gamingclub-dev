@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ButtonGroup from '../../../../../components/selector/TextButton/ButtonGroup';
-import { useNumberContext } from '../../contexts/NumberContext';
+import { useNumberContext } from '../../../../../components/contexts/NumberContext';
 
 const TwoSpecialZodiacScreen = () => {
     const defaultButtonTextValue: string[] = [

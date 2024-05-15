@@ -8,7 +8,7 @@ import GamesLobbyScreen from './src/screens/GamesLobbyScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import TestScreen from './src/screens/TestScreen';
 import NewMScreen from './src/games/lhc/newam/screens/NewMScreen';
-import { NumberProvider } from './src/games/lhc/newam/contexts/NumberContext';
+import { NumberProvider } from './src/components/contexts/NumberContext';
 import ShopScreen from './src/components/shop/ShopScreen';
 
 const Stack = createStackNavigator();

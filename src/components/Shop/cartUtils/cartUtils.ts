@@ -4,7 +4,7 @@ import { CartItem } from '../Carts/ShoppingCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../types';
-import { useNumberContext } from '../../../games/lhc/newam/contexts/NumberContext';
+import { useNumberContext } from '../../contexts/NumberContext';
 
 const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
