@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365710081682",
+    "project_id": "gamingclub-27aaa",
+    "storage_bucket": "gamingclub-27aaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365710081682:android:e59867b5ace7698cb3704b",
+        "android_client_info": {
+          "package_name": "com.gamingclub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASowfhmgF6uJM3zzDo5s5ImhF8laaOcvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
