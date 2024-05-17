@@ -158,7 +158,7 @@ const ShoppingCart: React.FC = () => {
         console.log("Submitting the following data to backend:", dataToSubmit);
         console.log("Submitting to backend...");
         // 这里添加提交到后端的逻辑
-        navigation.navigate('NewMScreen', { tabBarVisible: true });
+        navigation.navigate('NewMacauScreen', { tabBarVisible: true });
     };
 
 

@@ -7,7 +7,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import GamesLobbyScreen from './src/screens/GamesLobbyScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import TestScreen from './src/screens/TestScreen';
-import NewMScreen from './src/games/lhc/newam/screens/NewMScreen';
+import NewMacauScreen from './src/games/lhc/newam/screens/NewMacauScreen';
 import { NumberProvider } from './src/components/contexts/NumberContext';
 import ShopScreen from './src/components/shop/ShopScreen';
 
@@ -19,8 +19,8 @@ const App = () => {
     <NumberProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Main" component={TabNavigator} />
-          <Stack.Screen name="NewMScreen" component={NewMScreen} />
+          <Stack.Screen name="GameScreenStack" component={TabNavigator} />
+          <Stack.Screen name="NewMacauScreen" component={NewMacauScreen} />
           <Stack.Screen name="ShopScreen" component={ShopScreen} />
         </Stack.Navigator>
       </NavigationContainer>

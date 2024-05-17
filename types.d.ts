@@ -1,7 +1,7 @@
 // RootStackParamList.tsx
 
 type RootStackParamList = {
-    NewMScreen: { tabBarVisible: boolean };
+    NewMacauScreen: { tabBarVisible: boolean };
     ShopScreen: { tabBarVisible: boolean };
 };
 

@@ -7,15 +7,16 @@ import { RootStackParamList } from '../../types';
 const GamesLobbyScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-    const goToNewMScreen = () => {
-        navigation.navigate('NewMScreen', { tabBarVisible: true });
-    };
+    // const goToNewMScreen = () => {
+    //     navigation.navigate('NewAmScreen', { tabBarVisible: true });
+    // };
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>游戏大厅</Text>
             <TouchableOpacity
-                onPress={goToNewMScreen}
+                onPress={() => navigation.navigate('NewMacauScreen', { tabBarVisible: true })}
+                // onPress={goToNewMScreen}
                 style={{
                     marginTop: 20,
                     padding: 10,
